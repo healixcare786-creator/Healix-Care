@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1224,7 +1224,6 @@
     </section>
 
     <!-- Contact Page -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
