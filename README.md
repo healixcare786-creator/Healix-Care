@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TECHIZO - Premium Mobile Accessories</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Global Styles */
         :root {
@@ -13,6 +14,7 @@
             --light: #1E1E1E;
             --dark: #0A0A0A;
             --success: #4CAF50;
+            --danger: #F44336;
             --text: #E0E0E0;
             --text-secondary: #B0B0B0;
         }
@@ -82,6 +84,24 @@
         
         .btn-gold:hover {
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #2E7D32 100%);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-success:hover {
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.5);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #C62828 100%);
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+        }
+        
+        .btn-danger:hover {
+            box-shadow: 0 8px 25px rgba(244, 67, 54, 0.5);
         }
         
         /* Header Styles */
@@ -768,6 +788,7 @@
             transition: all 0.4s ease;
             border: 1px solid rgba(212, 175, 55, 0.1);
             backdrop-filter: blur(10px);
+            position: relative;
         }
         
         .product-card:hover {
@@ -859,6 +880,92 @@
             margin-left: 5px;
         }
         
+        /* IMPROVED ADD TO CART BUTTON */
+        .add-to-cart-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #E64A19 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .add-to-cart-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .add-to-cart-btn:hover::before {
+            left: 100%;
+        }
+        
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
+        }
+        
+        .add-to-cart-btn:active {
+            transform: translateY(0);
+        }
+        
+        .add-to-cart-btn.added {
+            background: linear-gradient(135deg, var(--success) 0%, #2E7D32 100%);
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        .add-to-cart-btn.added::after {
+            content: '✓ Added';
+        }
+        
+        .add-to-cart-btn.added .btn-text {
+            display: none;
+        }
+        
+        .add-to-cart-btn i {
+            font-size: 14px;
+        }
+        
+        /* Cart notification */
+        .cart-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--success) 0%, #2E7D32 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
+        }
+        
+        .cart-notification.show {
+            transform: translateX(0);
+        }
+        
+        .cart-notification i {
+            font-size: 20px;
+        }
+        
         /* Page Sections */
         .page-section {
             display: none;
@@ -874,456 +981,6 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* WhatsApp Help */
-        .whatsapp-help {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        
-        .whatsapp-btn {
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .whatsapp-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
-        }
-        
-        .whatsapp-btn i {
-            font-size: 24px;
-            margin-right: 10px;
-        }
-        
-        /* Footer */
-        footer {
-            background: rgba(10, 10, 10, 0.95);
-            color: white;
-            padding: 60px 0 30px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-            color: var(--accent);
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-        }
-        
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-column ul li a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-        
-        .footer-column ul li a:hover {
-            color: white;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            color: white;
-            transition: all 0.3s;
-        }
-        
-        .social-links a:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            nav ul {
-                margin-top: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav ul li {
-                margin: 5px 10px;
-            }
-            
-            .language-selector {
-                margin-top: 15px;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .robot-container {
-                flex-direction: column;
-            }
-            
-            .robot-info {
-                padding: 40px 0 0;
-                text-align: center;
-            }
-            
-            .slide {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .slide-content {
-                padding-right: 0;
-                margin-bottom: 30px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo" data-page="home">
-                    <div class="logo-img">
-                        <img src="https://drive.google.com/uc?export=download&id=1XOt-PieewIUE4GsP9YFpwlXKBu7Xv5pe" alt="TECHIZO Logo">
-                    </div>
-                    <h1>TECHIZO</h1>
-                </a>
-                <nav>
-                    <ul>
-                        <li><a class="nav-link active" data-page="home">Home</a></li>
-                        <li><a class="nav-link" data-page="products">Products</a></li>
-                        <li><a class="nav-link" data-page="about">About</a></li>
-                        <li><a class="nav-link" data-page="contact">Contact</a></li>
-                        <li class="cart-icon">
-                            <a class="nav-link" data-page="cart">
-                                <i class="fas fa-shopping-bag"></i>
-                                <span class="cart-count">0</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="language-selector">
-                    <span>Language:</span>
-                    <select id="language-selector">
-                        <option value="en">English</option>
-                        <option value="ar">العربية</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Home Page -->
-    <section id="home-page" class="page-section active">
-        <!-- Enhanced Hero Animation -->
-        <div class="hero-animation">
-            <div class="parallax-bg" id="parallax-bg"></div>
-            <div class="floating-product">
-                <img src="https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Screen Protector">
-            </div>
-            <div class="floating-product">
-                <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Phone Case">
-            </div>
-            <div class="floating-product">
-                <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=684&q=80" alt="USB Adapter">
-            </div>
-            <div class="floating-product">
-                <img src="https://images.unsplash.com/photo-1605784407953-8fe7c72dab4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Charging Cable">
-            </div>
-            <div class="hero-content">
-                <h1 class="hero-title">Premium Mobile Accessories</h1>
-                <p class="hero-subtitle">Discover TECHIZO's high-quality screen protectors, cases, OTG cables, and more to keep your devices safe and functional. Experience the perfect blend of protection and style.</p>
-                <a class="btn shop-now-btn" data-page="products">Shop Now</a>
-            </div>
-        </div>
-
-        <!-- Robot Animation Section -->
-        <section class="robot-section">
-            <div class="robot-container">
-                <div class="robot-animation">
-                    <div class="robot">
-                        <div class="robot-head">
-                            <div class="robot-face">
-                                <div class="robot-eyes">
-                                    <div class="robot-eye"></div>
-                                    <div class="robot-eye"></div>
-                                </div>
-                                <div class="robot-mouth"></div>
-                            </div>
-                        </div>
-                        <div class="robot-body">
-                            <div class="robot-screen">TECHIZO</div>
-                        </div>
-                        <div class="robot-arms">
-                            <div class="robot-arm left"></div>
-                            <div class="robot-arm right"></div>
-                        </div>
-                        <div class="robot-legs">
-                            <div class="robot-leg left"></div>
-                            <div class="robot-leg right"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="robot-info">
-                    <h2>Meet TECHIZO Bot</h2>
-                    <p>Our friendly robot assistant is here to guide you through TECHIZO's premium collection of mobile accessories. From cutting-edge screen protectors to stylish phone cases, TECHIZO Bot ensures you find the perfect match for your device.</p>
-                    <p>With advanced technology and a passion for protection, TECHIZO Bot represents our commitment to quality and innovation in every product we offer.</p>
-                    <a class="btn btn-gold explore-products-btn" data-page="products">Explore Products</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Product Slider Section -->
-        <section class="slider-section">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Featured Collections</h2>
-                </div>
-            </div>
-            <div class="slider-container">
-                <div class="slider" id="product-slider">
-                    <div class="slide">
-                        <div class="slide-content">
-                            <h2>Ultimate Screen Protection</h2>
-                            <p>Our premium tempered glass screen protectors offer 9H hardness and oleophobic coating to resist fingerprints and scratches. Designed for maximum clarity and touch sensitivity.</p>
-                        </div>
-                        <div class="slide-image">
-                            <img src="https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Screen Protectors">
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                            <h2>Stylish Phone Cases</h2>
-                            <p>Protect your device in style with our collection of premium phone cases. From slim silicone to rugged armor cases, we have options for every lifestyle and preference.</p>
-                        </div>
-                        <div class="slide-image">
-                            <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Phone Cases">
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                            <h2>Fast Charging Solutions</h2>
-                            <p>Keep your devices powered with our high-speed charging cables and adapters. Featuring durable construction and fast charging capabilities for all your mobile needs.</p>
-                        </div>
-                        <div class="slide-image">
-                            <img src="https://images.unsplash.com/photo-1605784407953-8fe7c72dab4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Charging Accessories">
-                        </div>
-                    </div>
-                </div>
-                <div class="slider-arrow prev" id="prev-slide">&#10094;</div>
-                <div class="slider-arrow next" id="next-slide">&#10095;</div>
-                <div class="slider-controls">
-                    <div class="slider-dot active" data-slide="0"></div>
-                    <div class="slider-dot" data-slide="1"></div>
-                    <div class="slider-dot" data-slide="2"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Featured Products -->
-        <section class="products-section">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Featured Products</h2>
-                </div>
-                <div class="products-grid" id="featured-products-container">
-                    <!-- Featured products will be dynamically added here -->
-                </div>
-            </div>
-        </section>
-    </section>
-
-    <!-- Products Page -->
-    <section id="products-page" class="page-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>All Products</h2>
-            </div>
-            <div class="products-grid" id="all-products-container">
-                <!-- All products will be dynamically added here -->
-            </div>
-        </div>
-    </section>
-
-    <!-- About Page -->
-    <section id="about-page" class="page-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>About TECHIZO</h2>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Our Story</h3>
-                    <p>Founded in 2020, TECHIZO started with a simple mission: to provide high-quality, affordable mobile accessories that genuinely protect your devices. We noticed a gap in the market for products that combined excellent protection with stylish design.</p>
-                    <p>Today, we serve customers across Europe, the Middle East, and Pakistan, with our headquarters based in Faisalabad. Our products are tested rigorously to ensure they meet the highest standards of quality and durability.</p>
-                    <h3>Our Mission</h3>
-                    <p>To become the leading provider of mobile accessories by offering innovative products that enhance device protection while maintaining aesthetic appeal. We believe your mobile accessories should reflect your personal style while providing maximum protection.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Page -->
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHIZO - Contact Us</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Global Styles */
-        :root {
-            --primary: #121212;
-            --secondary: #FF9800; /* Light Orange */
-            --accent: #FFB74D; /* Lighter Orange */
-            --light: #1E1E1E;
-            --dark: #0A0A0A;
-            --success: #4CAF50;
-            --text: #E0E0E0;
-            --text-secondary: #B0B0B0;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--secondary) 0%, #E65100 100%);
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.4s ease;
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 152, 0, 0.5);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--text);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            border-radius: 3px;
         }
         
         /* Contact Page Specific Styles */
@@ -1608,19 +1265,549 @@
             color: var(--text-secondary);
         }
         
-        /* Orange Glow Animation */
-        @keyframes orangeGlow {
-            0% { box-shadow: 0 0 10px rgba(255, 152, 0, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(255, 152, 0, 0.8); }
-            100% { box-shadow: 0 0 10px rgba(255, 152, 0, 0.5); }
+        /* Cart Styles */
+        .cart-container {
+            max-width: 1000px;
+            margin: 0 auto;
         }
         
-        .contact-icon {
-            animation: orangeGlow 3s infinite;
+        .cart-item {
+            display: flex;
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
         }
         
-        /* Responsive Styles */
-        @media (max-width: 992px) {
+        .cart-item-image {
+            width: 120px;
+            height: 120px;
+            margin-right: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-details h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+        
+        .cart-item-details p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background: rgba(212, 175, 55, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity {
+            font-weight: bold;
+            width: 30px;
+            text-align: center;
+        }
+        
+        /* WhatsApp Help */
+        .whatsapp-help {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .whatsapp-btn {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+        }
+        
+        .whatsapp-btn i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 10, 0.95);
+            color: white;
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        /* Admin Portal Styles */
+        .admin-header {
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .admin-logo h1 {
+            font-size: 26px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .admin-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .admin-nav ul li {
+            margin-left: 20px;
+        }
+        
+        .admin-nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .admin-nav ul li a.active {
+            color: white;
+            background: rgba(212, 175, 55, 0.2);
+        }
+        
+        /* EXIT BUTTON STYLES */
+        .exit-admin-btn {
+            background: linear-gradient(135deg, var(--danger) 0%, #C62828 100%);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .exit-admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(244, 67, 54, 0.4);
+        }
+        
+        /* Admin Login */
+        .admin-login {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 40px 0;
+        }
+        
+        .login-form {
+            background: rgba(30, 30, 30, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+        }
+        
+        .admin-form-group {
+            margin-bottom: 20px;
+        }
+        
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        
+        .admin-form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            background: rgba(10, 10, 10, 0.7);
+            color: var(--text);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .admin-form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+            padding: 40px 0;
+            min-height: 80vh;
+        }
+        
+        .dashboard-section {
+            display: none;
+            padding: 30px 0;
+        }
+        
+        .dashboard-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .admin-section-title {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .admin-section-title h2 {
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Stats Cards */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(30, 30, 30, 0.7);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .stat-card p {
+            color: var(--text-secondary);
+        }
+        
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .admin-table th, .admin-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .admin-table th {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .admin-table tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        /* Forms */
+        .admin-form {
+            background: rgba(30, 30, 30, 0.7);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Settings */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .setting-card {
+            background: rgba(30, 30, 30, 0.7);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .setting-card h3 {
+            margin-bottom: 20px;
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .language-selector {
+                margin-top: 15px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .robot-container {
+                flex-direction: column;
+            }
+            
+            .robot-info {
+                padding: 40px 0 0;
+                text-align: center;
+            }
+            
+            .slide {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .slide-content {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            
             .contact-container {
                 grid-template-columns: 1fr;
                 gap: 30px;
@@ -1628,6 +1815,29 @@
             
             .contact-info, .contact-form {
                 padding: 30px;
+            }
+            
+            .admin-header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .admin-nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .admin-nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
             }
         }
         
@@ -1649,215 +1859,618 @@
     </style>
 </head>
 <body>
-    <!-- Contact Page -->
-    <section id="contact-page" class="page-section active">
-        <div class="contact-page">
+    <!-- Main Website -->
+    <div id="main-website">
+        <!-- Header -->
+        <header>
             <div class="container">
-                <div class="section-title">
-                    <h2>Contact Us</h2>
-                    <p style="text-align: center; color: var(--text-secondary); max-width: 600px; margin: 0 auto; margin-top: 20px;">
-                        Have questions about our products or need assistance? We're here to help! 
-                        Reach out to our friendly support team.
-                    </p>
+                <div class="header-content">
+                    <a href="#" class="logo" data-page="home">
+                        <div class="logo-img">
+                            <img src="https://drive.google.com/uc?export=download&id=1XOt-PieewIUE4GsP9YFpwlXKBu7Xv5pe" alt="TECHIZO Logo">
+                        </div>
+                        <h1>TECHIZO</h1>
+                    </a>
+                    <nav>
+                        <ul>
+                            <li><a class="nav-link active" data-page="home">Home</a></li>
+                            <li><a class="nav-link" data-page="products">Products</a></li>
+                            <li><a class="nav-link" data-page="about">About</a></li>
+                            <li><a class="nav-link" data-page="contact">Contact</a></li>
+                            <li class="cart-icon">
+                                <a class="nav-link" data-page="cart">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span class="cart-count">0</span>
+                                </a>
+                            </li>
+                            <li><a id="admin-access-link">Admin</a></li>
+                        </ul>
+                    </nav>
+                    <div class="language-selector">
+                        <span>Language:</span>
+                        <select id="language-selector">
+                            <option value="en">English</option>
+                            <option value="ar">العربية</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Get In Touch</h3>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
+        </header>
+
+        <!-- Home Page -->
+        <section id="home-page" class="page-section active">
+            <!-- Enhanced Hero Animation -->
+            <div class="hero-animation">
+                <div class="parallax-bg" id="parallax-bg"></div>
+                <div class="floating-product">
+                    <img src="https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Screen Protector">
+                </div>
+                <div class="floating-product">
+                    <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Phone Case">
+                </div>
+                <div class="floating-product">
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=684&q=80" alt="USB Adapter">
+                </div>
+                <div class="floating-product">
+                    <img src="https://images.unsplash.com/photo-1605784407953-8fe7c72dab4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Charging Cable">
+                </div>
+                <div class="hero-content">
+                    <h1 class="hero-title">Premium Mobile Accessories</h1>
+                    <p class="hero-subtitle">Discover TECHIZO's high-quality screen protectors, cases, OTG cables, and more to keep your devices safe and functional. Experience the perfect blend of protection and style.</p>
+                    <a class="btn shop-now-btn" data-page="products">Shop Now</a>
+                </div>
+            </div>
+
+            <!-- Robot Animation Section -->
+            <section class="robot-section">
+                <div class="robot-container">
+                    <div class="robot-animation">
+                        <div class="robot">
+                            <div class="robot-head">
+                                <div class="robot-face">
+                                    <div class="robot-eyes">
+                                        <div class="robot-eye"></div>
+                                        <div class="robot-eye"></div>
+                                    </div>
+                                    <div class="robot-mouth"></div>
+                                </div>
                             </div>
-                            <div class="contact-text">
-                                <h4>Our Location</h4>
-                                <p>Faisalabad, Punjab, Pakistan</p>
+                            <div class="robot-body">
+                                <div class="robot-screen">TECHIZO</div>
                             </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon light">
-                                <i class="fas fa-phone-alt"></i>
+                            <div class="robot-arms">
+                                <div class="robot-arm left"></div>
+                                <div class="robot-arm right"></div>
                             </div>
-                            <div class="contact-text">
-                                <h4>Phone Numbers</h4>
-                                <p>+92 3481869972<br>+92 3197247048</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Email Address</h4>
-                                <p>healixcare786@gmail.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon light">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Business Hours</h4>
-                                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            <div class="robot-legs">
+                                <div class="robot-leg left"></div>
+                                <div class="robot-leg right"></div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="social-section">
-                        <h4>Follow Us</h4>
-                        <div class="social-links-contact">
-                            <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
-                            <a href="https://wa.me/923481869972" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <div class="robot-info">
+                        <h2>Meet TECHIZO Bot</h2>
+                        <p>Our friendly robot assistant is here to guide you through TECHIZO's premium collection of mobile accessories. From cutting-edge screen protectors to stylish phone cases, TECHIZO Bot ensures you find the perfect match for your device.</p>
+                        <p>With advanced technology and a passion for protection, TECHIZO Bot represents our commitment to quality and innovation in every product we offer.</p>
+                        <a class="btn btn-gold explore-products-btn" data-page="products">Explore Products</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Slider Section -->
+            <section class="slider-section">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Featured Collections</h2>
+                    </div>
+                </div>
+                <div class="slider-container">
+                    <div class="slider" id="product-slider">
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2>Ultimate Screen Protection</h2>
+                                <p>Our premium tempered glass screen protectors offer 9H hardness and oleophobic coating to resist fingerprints and scratches. Designed for maximum clarity and touch sensitivity.</p>
+                            </div>
+                            <div class="slide-image">
+                                <img src="https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Screen Protectors">
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2>Stylish Phone Cases</h2>
+                                <p>Protect your device in style with our collection of premium phone cases. From slim silicone to rugged armor cases, we have options for every lifestyle and preference.</p>
+                            </div>
+                            <div class="slide-image">
+                                <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Phone Cases">
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-content">
+                                <h2>Fast Charging Solutions</h2>
+                                <p>Keep your devices powered with our high-speed charging cables and adapters. Featuring durable construction and fast charging capabilities for all your mobile needs.</p>
+                            </div>
+                            <div class="slide-image">
+                                <img src="https://images.unsplash.com/photo-1605784407953-8fe7c72dab4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Charging Accessories">
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="map-container">
-                        <div class="map-placeholder">
-                            <i class="fas fa-map-marked-alt"></i>
-                            <p>Faisalabad, Punjab, Pakistan</p>
-                        </div>
+                    <div class="slider-arrow prev" id="prev-slide">&#10094;</div>
+                    <div class="slider-arrow next" id="next-slide">&#10095;</div>
+                    <div class="slider-controls">
+                        <div class="slider-dot active" data-slide="0"></div>
+                        <div class="slider-dot" data-slide="1"></div>
+                        <div class="slider-dot" data-slide="2"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Products -->
+            <section class="products-section">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Featured Products</h2>
+                    </div>
+                    <div class="products-grid" id="featured-products-container">
+                        <!-- Featured products will be dynamically added here -->
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Products Page -->
+        <section id="products-page" class="page-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>All Products</h2>
+                </div>
+                <div class="products-grid" id="all-products-container">
+                    <!-- All products will be dynamically added here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about-page" class="page-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>About TECHIZO</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Our Story</h3>
+                        <p>Founded in 2020, TECHIZO started with a simple mission: to provide high-quality, affordable mobile accessories that genuinely protect your devices. We noticed a gap in the market for products that combined excellent protection with stylish design.</p>
+                        <p>Today, we serve customers across Europe, the Middle East, and Pakistan, with our headquarters based in Faisalabad. Our products are tested rigorously to ensure they meet the highest standards of quality and durability.</p>
+                        <h3>Our Mission</h3>
+                        <p>To become the leading provider of mobile accessories by offering innovative products that enhance device protection while maintaining aesthetic appeal. We believe your mobile accessories should reflect your personal style while providing maximum protection.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact-page" class="page-section">
+            <div class="contact-page">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Contact Us</h2>
+                        <p style="text-align: center; color: var(--text-secondary); max-width: 600px; margin: 0 auto; margin-top: 20px;">
+                            Have questions about our products or need assistance? We're here to help! 
+                            Reach out to our friendly support team.
+                        </p>
                     </div>
                 </div>
                 
-                <div class="contact-form">
-                    <h3>Send us a Message</h3>
-                    <form id="contact-form">
-                        <div class="form-group">
-                            <label for="contact-name">Your Name</label>
-                            <input type="text" id="contact-name" class="form-control" placeholder="Enter your full name" required>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Our Location</h4>
+                                    <p>Faisalabad, Punjab, Pakistan</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon light">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Phone Numbers</h4>
+                                    <p>+92 3481869972<br>+92 3197247048</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Email Address</h4>
+                                    <p>healixcare786@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon light">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Business Hours</h4>
+                                    <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="contact-email">Your Email</label>
-                            <input type="email" id="contact-email" class="form-control" placeholder="Enter your email address" required>
+                        <div class="social-section">
+                            <h4>Follow Us</h4>
+                            <div class="social-links-contact">
+                                <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="https://wa.me/923481869972" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="contact-phone">Phone Number</label>
-                            <input type="tel" id="contact-phone" class="form-control" placeholder="Enter your phone number">
+                        <div class="map-container">
+                            <div class="map-placeholder">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <p>Faisalabad, Punjab, Pakistan</p>
+                            </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="contact-subject">Subject</label>
-                            <select id="contact-subject" class="form-control" required>
-                                <option value="" disabled selected>Select a subject</option>
-                                <option value="general">General Inquiry</option>
-                                <option value="product">Product Information</option>
-                                <option value="order">Order Support</option>
-                                <option value="warranty">Warranty Claim</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contact-message">Message</label>
-                            <textarea id="contact-message" class="form-control" placeholder="Tell us how we can help you..." required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // Contact form submission
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const name = document.getElementById('contact-name').value;
-            const email = document.getElementById('contact-email').value;
-            const subject = document.getElementById('contact-subject').value;
-            const message = document.getElementById('contact-message').value;
-            
-            // Simple validation
-            if (!name || !email || !subject || !message) {
-                alert('Please fill in all required fields.');
-                return;
-            }
-            
-            // In a real application, you would send this data to a server
-            // For now, we'll just show a success message
-            alert(`Thank you, ${name}! Your message has been sent successfully. We'll get back to you soon.`);
-            
-            // Reset the form
-            document.getElementById('contact-form').reset();
-        });
-    </script>
-</body>
-</html>
-
-    <!-- Cart Page -->
-    <section id="cart-page" class="page-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Shopping Cart</h2>
-            </div>
-            <div class="cart-container">
-                <div class="cart-items" id="cart-items-container">
-                    <div class="empty-cart" id="empty-cart-message" style="text-align: center; padding: 40px;">
-                        <i class="fas fa-shopping-bag" style="font-size: 48px; color: rgba(212, 175, 55, 0.3); margin-bottom: 20px;"></i>
-                        <h3>Your cart is empty</h3>
-                        <p>Add some products to your cart</p>
-                        <a class="btn" data-page="products" style="margin-top: 20px;">Continue Shopping</a>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label for="contact-name">Your Name</label>
+                                <input type="text" id="contact-name" class="form-control" placeholder="Enter your full name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-email">Your Email</label>
+                                <input type="email" id="contact-email" class="form-control" placeholder="Enter your email address" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-phone">Phone Number</label>
+                                <input type="tel" id="contact-phone" class="form-control" placeholder="Enter your phone number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-subject">Subject</label>
+                                <select id="contact-subject" class="form-control" required>
+                                    <option value="" disabled selected>Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="product">Product Information</option>
+                                    <option value="order">Order Support</option>
+                                    <option value="warranty">Warranty Claim</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-message">Message</label>
+                                <textarea id="contact-message" class="form-control" placeholder="Tell us how we can help you..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- WhatsApp Help - Fixed on all pages -->
-    <div class="whatsapp-help">
-        <a href="https://wa.me/923481869972?text=Hi%20TECHIZO,%20I%20need%20help%20with%20my%20order" class="whatsapp-btn" target="_blank">
-            <i class="fab fa-whatsapp"></i>
-            <span>Need Help?</span>
-        </a>
+        <!-- Cart Page -->
+        <section id="cart-page" class="page-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Shopping Cart</h2>
+                </div>
+                <div class="cart-container">
+                    <div class="cart-items" id="cart-items-container">
+                        <div class="empty-cart" id="empty-cart-message" style="text-align: center; padding: 40px;">
+                            <i class="fas fa-shopping-bag" style="font-size: 48px; color: rgba(212, 175, 55, 0.3); margin-bottom: 20px;"></i>
+                            <h3>Your cart is empty</h3>
+                            <p>Add some products to your cart</p>
+                            <a class="btn" data-page="products" style="margin-top: 20px;">Continue Shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart Notification -->
+        <div class="cart-notification" id="cart-notification">
+            <i class="fas fa-check-circle"></i>
+            <span>Product added to cart!</span>
+        </div>
+
+        <!-- WhatsApp Help - Fixed on all pages -->
+        <div class="whatsapp-help">
+            <a href="https://wa.me/923481869972?text=Hi%20TECHIZO,%20I%20need%20help%20with%20my%20order" class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>Need Help?</span>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>About TECHIZO</h3>
+                        <p>We provide premium quality mobile accessories to protect and enhance your devices. Our products are designed with care and precision.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="https://wa.me/923481869972" class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a data-page="home">Home</a></li>
+                            <li><a data-page="products">Products</a></li>
+                            <li><a data-page="about">About Us</a></li>
+                            <li><a data-page="contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contact Information</h3>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i> Faisalabad, Punjab, Pakistan</li>
+                            <li><i class="fas fa-phone"></i> +92 3481869972</li>
+                            <li><i class="fas fa-phone"></i> +92 3197247048</li>
+                            <li><i class="fas fa-envelope"></i> healixcare786@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2023 TECHIZO. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>About TECHIZO</h3>
-                    <p>We provide premium quality mobile accessories to protect and enhance your devices. Our products are designed with care and precision.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/923481869972" class="btn-whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    <!-- Admin Portal -->
+    <div id="admin-portal" style="display: none;">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <div class="container">
+                <div class="admin-header-content">
+                    <div class="admin-logo">
+                        <h1>TECHIZO Admin</h1>
+                    </div>
+                    <nav class="admin-nav">
+                        <ul>
+                            <li><a class="dashboard-link active" data-section="dashboard">Dashboard</a></li>
+                            <li><a class="dashboard-link" data-section="products">Products</a></li>
+                            <li><a class="dashboard-link" data-section="orders">Orders</a></li>
+                            <li><a class="dashboard-link" data-section="settings">Settings</a></li>
+                            <li><a id="logout-btn">Logout</a></li>
+                            <li><button class="exit-admin-btn" id="exit-admin-btn"><i class="fas fa-sign-out-alt"></i> Exit</button></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Admin Login -->
+        <section class="admin-login" id="admin-login">
+            <div class="container">
+                <div class="login-form">
+                    <h2>Admin Login</h2>
+                    <div class="admin-form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="admin-form-control" placeholder="Enter username">
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" class="admin-form-control" placeholder="Enter password">
+                    </div>
+                    <button class="btn btn-gold" id="login-btn" style="width: 100%;">Login</button>
+                    <div id="login-error" style="color: var(--danger); margin-top: 15px; display: none;">Invalid username or password</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard -->
+        <section class="admin-dashboard" id="admin-dashboard">
+            <div class="container">
+                <!-- Dashboard Overview -->
+                <div class="dashboard-section active" id="dashboard-section">
+                    <div class="admin-section-title">
+                        <h2>Dashboard Overview</h2>
+                    </div>
+                    
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <h3 id="total-products">0</h3>
+                            <p>Total Products</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="total-orders">0</h3>
+                            <p>Total Orders</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="pending-orders">0</h3>
+                            <p>Pending Orders</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 id="total-revenue">$0</h3>
+                            <p>Total Revenue</p>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section-title">
+                        <h2>Recent Orders</h2>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-orders-table">
+                                <!-- Recent orders will be populated here -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a data-page="home">Home</a></li>
-                        <li><a data-page="products">Products</a></li>
-                        <li><a data-page="about">About Us</a></li>
-                        <li><a data-page="contact">Contact</a></li>
-                    </ul>
+                
+                <!-- Products Management -->
+                <div class="dashboard-section" id="products-section">
+                    <div class="admin-section-title">
+                        <h2>Product Management</h2>
+                    </div>
+                    
+                    <div class="admin-form">
+                        <h3 style="margin-bottom: 20px; color: var(--accent);" id="product-form-title">Add New Product</h3>
+                        
+                        <div class="form-row">
+                            <div class="admin-form-group">
+                                <label for="product-name">Product Name</label>
+                                <input type="text" id="product-name" class="admin-form-control" placeholder="Enter product name">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="product-category">Category</label>
+                                <select id="product-category" class="admin-form-control">
+                                    <option value="">Select Category</option>
+                                    <option value="screen-protector">Screen Protector</option>
+                                    <option value="phone-case">Phone Case</option>
+                                    <option value="cable">Cable</option>
+                                    <option value="charger">Charger</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="admin-form-group">
+                                <label for="product-price">Price ($)</label>
+                                <input type="number" id="product-price" class="admin-form-control" placeholder="Enter price" min="0" step="0.01">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="product-discount">Discount (%)</label>
+                                <input type="number" id="product-discount" class="admin-form-control" placeholder="Enter discount" min="0" max="100" step="1">
+                            </div>
+                        </div>
+                        
+                        <div class="admin-form-group">
+                            <label for="product-description">Description</label>
+                            <textarea id="product-description" class="admin-form-control" rows="4" placeholder="Enter product description"></textarea>
+                        </div>
+                        
+                        <div class="admin-form-group">
+                            <label for="product-image">Product Image</label>
+                            <input type="file" id="product-image" class="admin-form-control" accept="image/*">
+                            <div class="image-preview" id="image-preview"></div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button class="btn btn-success" id="save-product">Save Product</button>
+                            <button class="btn btn-danger" id="cancel-edit" style="display: none;">Cancel</button>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section-title">
+                        <h2>All Products</h2>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Discount</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-table">
+                                <!-- Products will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="footer-column">
-                    <h3>Contact Information</h3>
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Faisalabad, Punjab, Pakistan</li>
-                        <li><i class="fas fa-phone"></i> +92 3481869972</li>
-                        <li><i class="fas fa-phone"></i> +92 3197247048</li>
-                        <li><i class="fas fa-envelope"></i> healixcare786@gmail.com</li>
-                    </ul>
+                
+                <!-- Orders Management -->
+                <div class="dashboard-section" id="orders-section">
+                    <div class="admin-section-title">
+                        <h2>Order Management</h2>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Products</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table">
+                                <!-- Orders will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Settings -->
+                <div class="dashboard-section" id="settings-section">
+                    <div class="admin-section-title">
+                        <h2>Website Settings</h2>
+                    </div>
+                    
+                    <div class="settings-grid">
+                        <div class="setting-card">
+                            <h3>Discount Settings</h3>
+                            <div class="admin-form-group">
+                                <label for="global-discount">Global Discount (%)</label>
+                                <input type="number" id="global-discount" class="admin-form-control" min="0" max="100" step="1">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="min-order-discount">Minimum Order for Discount ($)</label>
+                                <input type="number" id="min-order-discount" class="admin-form-control" min="0" step="0.01">
+                            </div>
+                            <button class="btn btn-gold" id="save-discount-settings">Save Discount Settings</button>
+                        </div>
+                        
+                        <div class="setting-card">
+                            <h3>Delivery Settings</h3>
+                            <div class="admin-form-group">
+                                <label for="delivery-charges">Delivery Charges ($)</label>
+                                <input type="number" id="delivery-charges" class="admin-form-control" min="0" step="0.01">
+                            </div>
+                            <div class="admin-form-group">
+                                <label for="free-delivery-threshold">Free Delivery Threshold ($)</label>
+                                <input type="number" id="free-delivery-threshold" class="admin-form-control" min="0" step="0.01">
+                            </div>
+                            <button class="btn btn-gold" id="save-delivery-settings">Save Delivery Settings</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2023 TECHIZO. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+        </section>
+    </div>
 
     <script>
         // Sample products data
@@ -1943,7 +2556,61 @@
         var shopNowBtn = document.querySelector('.shop-now-btn');
         var exploreProductsBtn = document.querySelector('.explore-products-btn');
         var whatsappBtn = document.querySelector('.whatsapp-btn');
+        var adminAccessLink = document.getElementById('admin-access-link');
+        var cartNotification = document.getElementById('cart-notification');
 
+        // Admin Portal Elements
+        var mainWebsite = document.getElementById('main-website');
+        var adminPortal = document.getElementById('admin-portal');
+        var adminLogin = document.getElementById('admin-login');
+        var adminDashboard = document.getElementById('admin-dashboard');
+        var loginBtn = document.getElementById('login-btn');
+        var logoutBtn = document.getElementById('logout-btn');
+        var exitAdminBtn = document.getElementById('exit-admin-btn');
+        var usernameInput = document.getElementById('username');
+        var passwordInput = document.getElementById('password');
+        var loginError = document.getElementById('login-error');
+        var dashboardLinks = document.querySelectorAll('.dashboard-link');
+        var dashboardSections = document.querySelectorAll('.dashboard-section');
+        
+        // Products management elements
+        const productFormTitle = document.getElementById('product-form-title');
+        const productName = document.getElementById('product-name');
+        const productCategory = document.getElementById('product-category');
+        const productPrice = document.getElementById('product-price');
+        const productDiscount = document.getElementById('product-discount');
+        const productDescription = document.getElementById('product-description');
+        const productImage = document.getElementById('product-image');
+        const imagePreview = document.getElementById('image-preview');
+        const saveProductBtn = document.getElementById('save-product');
+        const cancelEditBtn = document.getElementById('cancel-edit');
+        const productsTable = document.getElementById('products-table');
+        
+        // Settings elements
+        const globalDiscount = document.getElementById('global-discount');
+        const minOrderDiscount = document.getElementById('min-order-discount');
+        const deliveryCharges = document.getElementById('delivery-charges');
+        const freeDeliveryThreshold = document.getElementById('free-delivery-threshold');
+        const saveDiscountSettingsBtn = document.getElementById('save-discount-settings');
+        const saveDeliverySettingsBtn = document.getElementById('save-delivery-settings');
+        
+        // Dashboard elements
+        const totalProducts = document.getElementById('total-products');
+        const totalOrders = document.getElementById('total-orders');
+        const pendingOrders = document.getElementById('pending-orders');
+        const totalRevenue = document.getElementById('total-revenue');
+        const recentOrdersTable = document.getElementById('recent-orders-table');
+        const ordersTable = document.getElementById('orders-table');
+        
+        // State variables
+        let orders = [];
+        let settings = {};
+        let editingProductId = null;
+
+        // Admin credentials
+        const ADMIN_USERNAME = "He@lixcare786";
+        const ADMIN_PASSWORD = "Abdull@H1122";
+        
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             // Load products
@@ -1984,7 +2651,468 @@
             
             // Initialize slider
             initSlider();
+            
+            // Set up admin portal
+            setupAdminPortal();
         });
+
+        // Set up admin portal
+        function setupAdminPortal() {
+            // Load data from localStorage
+            loadProducts();
+            loadOrders();
+            loadSettings();
+            
+            // Set up event listeners
+            setupAdminEventListeners();
+            
+            // Update dashboard stats
+            updateDashboardStats();
+        }
+        
+        // Set up admin event listeners
+        function setupAdminEventListeners() {
+            // Admin access
+            adminAccessLink.addEventListener('click', function() {
+                showAdminPortal();
+            });
+            
+            // Exit admin
+            exitAdminBtn.addEventListener('click', function() {
+                showMainWebsite();
+            });
+            
+            // Login
+            loginBtn.addEventListener('click', handleLogin);
+            
+            // Logout
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Dashboard navigation
+            dashboardLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    navigateToAdminSection(section);
+                    
+                    // Update active link
+                    dashboardLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Product image preview
+            productImage.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Product Preview">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Save product
+            saveProductBtn.addEventListener('click', saveProduct);
+            
+            // Cancel edit
+            cancelEditBtn.addEventListener('click', cancelEdit);
+            
+            // Save settings
+            saveDiscountSettingsBtn.addEventListener('click', saveDiscountSettings);
+            saveDeliverySettingsBtn.addEventListener('click', saveDeliverySettings);
+        }
+        
+        // Handle login
+        function handleLogin() {
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+            
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                localStorage.setItem('adminLoggedIn', 'true');
+                showAdminDashboard();
+            } else {
+                loginError.style.display = 'block';
+            }
+        }
+        
+        // Handle logout
+        function handleLogout() {
+            localStorage.removeItem('adminLoggedIn');
+            showAdminLogin();
+            resetForm();
+        }
+        
+        // Show admin portal
+        function showAdminPortal() {
+            mainWebsite.style.display = 'none';
+            adminPortal.style.display = 'block';
+            
+            // Check if admin is already logged in
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                showAdminDashboard();
+            } else {
+                showAdminLogin();
+            }
+        }
+        
+        // Show main website
+        function showMainWebsite() {
+            mainWebsite.style.display = 'block';
+            adminPortal.style.display = 'none';
+        }
+        
+        // Show admin login
+        function showAdminLogin() {
+            adminLogin.style.display = 'flex';
+            adminDashboard.style.display = 'none';
+        }
+        
+        // Show admin dashboard
+        function showAdminDashboard() {
+            adminLogin.style.display = 'none';
+            adminDashboard.style.display = 'block';
+        }
+        
+        // Navigate to admin section
+        function navigateToAdminSection(section) {
+            dashboardSections.forEach(sec => {
+                sec.classList.remove('active');
+            });
+            
+            document.getElementById(`${section}-section`).classList.add('active');
+        }
+        
+        // Load products from localStorage
+        function loadProducts() {
+            const storedProducts = localStorage.getItem('techizo_products');
+            if (storedProducts) {
+                products = JSON.parse(storedProducts);
+                renderProductsTable();
+            }
+        }
+        
+        // Load orders from localStorage
+        function loadOrders() {
+            const storedOrders = localStorage.getItem('techizo_orders');
+            if (storedOrders) {
+                orders = JSON.parse(storedOrders);
+                renderOrdersTable();
+                renderRecentOrdersTable();
+            }
+        }
+        
+        // Load settings from localStorage
+        function loadSettings() {
+            const storedSettings = localStorage.getItem('techizo_settings');
+            if (storedSettings) {
+                settings = JSON.parse(storedSettings);
+                
+                // Update settings form
+                if (settings.globalDiscount !== undefined) {
+                    globalDiscount.value = settings.globalDiscount;
+                }
+                
+                if (settings.minOrderDiscount !== undefined) {
+                    minOrderDiscount.value = settings.minOrderDiscount;
+                }
+                
+                if (settings.deliveryCharges !== undefined) {
+                    deliveryCharges.value = settings.deliveryCharges;
+                }
+                
+                if (settings.freeDeliveryThreshold !== undefined) {
+                    freeDeliveryThreshold.value = settings.freeDeliveryThreshold;
+                }
+            }
+        }
+        
+        // Save product
+        function saveProduct() {
+            // Validation
+            if (!productName.value || !productCategory.value || !productPrice.value) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const product = {
+                id: editingProductId || Date.now(),
+                name: productName.value,
+                category: productCategory.value,
+                price: parseFloat(productPrice.value),
+                discount: parseInt(productDiscount.value) || 0,
+                description: productDescription.value,
+                featured: false
+            };
+            
+            // Handle image
+            if (productImage.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    product.image = e.target.result;
+                    
+                    // Save product
+                    if (editingProductId) {
+                        // Update existing product
+                        const index = products.findIndex(p => p.id === editingProductId);
+                        if (index !== -1) {
+                            products[index] = product;
+                        }
+                    } else {
+                        // Add new product
+                        products.push(product);
+                    }
+                    
+                    // Save to localStorage and update UI
+                    localStorage.setItem('techizo_products', JSON.stringify(products));
+                    renderProductsTable();
+                    updateDashboardStats();
+                    resetForm();
+                    
+                    // Update main website
+                    renderFeaturedProducts();
+                    renderAllProducts();
+                };
+                reader.readAsDataURL(productImage.files[0]);
+            } else {
+                // If no new image, keep existing image when editing
+                if (editingProductId) {
+                    const existingProduct = products.find(p => p.id === editingProductId);
+                    if (existingProduct) {
+                        product.image = existingProduct.image;
+                    }
+                } else {
+                    // Use default image for new products without image
+                    product.image = 'https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80';
+                }
+                
+                // Save product
+                if (editingProductId) {
+                    // Update existing product
+                    const index = products.findIndex(p => p.id === editingProductId);
+                    if (index !== -1) {
+                        products[index] = product;
+                    }
+                } else {
+                    // Add new product
+                    products.push(product);
+                }
+                
+                // Save to localStorage and update UI
+                localStorage.setItem('techizo_products', JSON.stringify(products));
+                renderProductsTable();
+                updateDashboardStats();
+                resetForm();
+                
+                // Update main website
+                renderFeaturedProducts();
+                renderAllProducts();
+            }
+        }
+        
+        // Edit product
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                productName.value = product.name;
+                productCategory.value = product.category;
+                productPrice.value = product.price;
+                productDiscount.value = product.discount;
+                productDescription.value = product.description;
+                
+                // Show image preview
+                if (product.image) {
+                    imagePreview.innerHTML = `<img src="${product.image}" alt="Product Preview">`;
+                }
+                
+                // Update form title and buttons
+                productFormTitle.textContent = 'Edit Product';
+                saveProductBtn.textContent = 'Update Product';
+                cancelEditBtn.style.display = 'inline-block';
+                
+                // Set editing mode
+                editingProductId = id;
+                
+                // Scroll to form
+                document.getElementById('products-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Delete product
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('techizo_products', JSON.stringify(products));
+                renderProductsTable();
+                updateDashboardStats();
+                
+                // Update main website
+                renderFeaturedProducts();
+                renderAllProducts();
+            }
+        }
+        
+        // Cancel edit
+        function cancelEdit() {
+            resetForm();
+        }
+        
+        // Reset form
+        function resetForm() {
+            productName.value = '';
+            productCategory.value = '';
+            productPrice.value = '';
+            productDiscount.value = '';
+            productDescription.value = '';
+            productImage.value = '';
+            imagePreview.innerHTML = '';
+            
+            productFormTitle.textContent = 'Add New Product';
+            saveProductBtn.textContent = 'Save Product';
+            cancelEditBtn.style.display = 'none';
+            
+            editingProductId = null;
+        }
+        
+        // Render products table
+        function renderProductsTable() {
+            productsTable.innerHTML = '';
+            
+            if (products.length === 0) {
+                productsTable.innerHTML = '<tr><td colspan="6" style="text-align: center;">No products found</td></tr>';
+                return;
+            }
+            
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td><img src="${product.image}" alt="${product.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;"></td>
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>$${product.price.toFixed(2)}</td>
+                    <td>${product.discount}%</td>
+                    <td class="action-buttons">
+                        <button class="action-btn btn-gold" onclick="editProduct(${product.id})">Edit</button>
+                        <button class="action-btn btn-danger" onclick="deleteProduct(${product.id})">Delete</button>
+                    </td>
+                `;
+                
+                productsTable.appendChild(row);
+            });
+        }
+        
+        // Render orders table
+        function renderOrdersTable() {
+            ordersTable.innerHTML = '';
+            
+            if (orders.length === 0) {
+                ordersTable.innerHTML = '<tr><td colspan="9" style="text-align: center;">No orders found</td></tr>';
+                return;
+            }
+            
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                
+                // Format products list
+                const productsList = order.items.map(item => 
+                    `${item.name} (x${item.quantity})`
+                ).join(', ');
+                
+                row.innerHTML = `
+                    <td>#${order.id}</td>
+                    <td>${order.customer.name}</td>
+                    <td>${order.customer.email}</td>
+                    <td>${order.customer.phone}</td>
+                    <td>${order.customer.address}</td>
+                    <td>${productsList}</td>
+                    <td>$${order.total.toFixed(2)}</td>
+                    <td>${order.status}</td>
+                    <td class="action-buttons">
+                        <button class="action-btn btn-success" onclick="updateOrderStatus(${order.id}, 'completed')">Complete</button>
+                        <button class="action-btn btn-danger" onclick="updateOrderStatus(${order.id}, 'cancelled')">Cancel</button>
+                    </td>
+                `;
+                
+                ordersTable.appendChild(row);
+            });
+        }
+        
+        // Render recent orders table
+        function renderRecentOrdersTable() {
+            recentOrdersTable.innerHTML = '';
+            
+            // Get recent orders (last 5)
+            const recentOrders = orders.slice(-5).reverse();
+            
+            if (recentOrders.length === 0) {
+                recentOrdersTable.innerHTML = '<tr><td colspan="5" style="text-align: center;">No recent orders</td></tr>';
+                return;
+            }
+            
+            recentOrders.forEach(order => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>#${order.id}</td>
+                    <td>${order.customer.name}</td>
+                    <td>${new Date(order.date).toLocaleDateString()}</td>
+                    <td>$${order.total.toFixed(2)}</td>
+                    <td>${order.status}</td>
+                `;
+                
+                recentOrdersTable.appendChild(row);
+            });
+        }
+        
+        // Update order status
+        function updateOrderStatus(orderId, status) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = status;
+                localStorage.setItem('techizo_orders', JSON.stringify(orders));
+                renderOrdersTable();
+                renderRecentOrdersTable();
+                updateDashboardStats();
+            }
+        }
+        
+        // Save discount settings
+        function saveDiscountSettings() {
+            settings.globalDiscount = parseInt(globalDiscount.value) || 0;
+            settings.minOrderDiscount = parseFloat(minOrderDiscount.value) || 0;
+            
+            localStorage.setItem('techizo_settings', JSON.stringify(settings));
+            alert('Discount settings saved successfully!');
+        }
+        
+        // Save delivery settings
+        function saveDeliverySettings() {
+            settings.deliveryCharges = parseFloat(deliveryCharges.value) || 0;
+            settings.freeDeliveryThreshold = parseFloat(freeDeliveryThreshold.value) || 0;
+            
+            localStorage.setItem('techizo_settings', JSON.stringify(settings));
+            alert('Delivery settings saved successfully!');
+        }
+        
+        // Update dashboard statistics
+        function updateDashboardStats() {
+            // Total products
+            totalProducts.textContent = products.length;
+            
+            // Total orders
+            totalOrders.textContent = orders.length;
+            
+            // Pending orders
+            const pending = orders.filter(order => order.status === 'pending').length;
+            pendingOrders.textContent = pending;
+            
+            // Total revenue
+            const revenue = orders
+                .filter(order => order.status === 'completed')
+                .reduce((total, order) => total + order.total, 0);
+            totalRevenue.textContent = `$${revenue.toFixed(2)}`;
+        }
 
         // Set up WhatsApp buttons
         function setupWhatsAppButtons() {
@@ -2180,13 +3308,11 @@
                             '<span class="price">$' + finalPrice.toFixed(2) + '</span>' +
                             '<span class="discount-badge">-' + product.discount + '%</span>' +
                         '</div>' +
-                        '<button class="btn add-to-cart-btn" data-id="' + product.id + '">Add to Cart</button>' +
                     '</div>';
             } else {
                 priceHtml = 
                     '<div class="product-price">' +
                         '<span class="price">$' + finalPrice.toFixed(2) + '</span>' +
-                        '<button class="btn add-to-cart-btn" data-id="' + product.id + '">Add to Cart</button>' +
                     '</div>';
             }
             
@@ -2198,19 +3324,23 @@
                     '<h3>' + product.name + '</h3>' +
                     '<p>' + product.description + '</p>' +
                     priceHtml +
+                    '<button class="add-to-cart-btn" data-id="' + product.id + '">' +
+                        '<i class="fas fa-shopping-cart"></i>' +
+                        '<span class="btn-text">Add to Cart</span>' +
+                    '</button>' +
                 '</div>';
             
             // Add event listener to Add to Cart button
             var addToCartBtn = productCard.querySelector('.add-to-cart-btn');
             addToCartBtn.addEventListener('click', function() {
-                addToCart(product.id);
+                addToCart(product.id, this);
             });
             
             return productCard;
         }
 
         // Add product to cart
-        function addToCart(productId) {
+        function addToCart(productId, button) {
             var product = products.find(function(p) {
                 return p.id === productId;
             });
@@ -2234,8 +3364,24 @@
                 }
                 
                 updateCartUI();
-                alert('Product added to cart!');
+                
+                // Show cart notification
+                showCartNotification();
+                
+                // Update button state
+                button.classList.add('added');
+                setTimeout(function() {
+                    button.classList.remove('added');
+                }, 2000);
             }
+        }
+
+        // Show cart notification
+        function showCartNotification() {
+            cartNotification.classList.add('show');
+            setTimeout(function() {
+                cartNotification.classList.remove('show');
+            }, 3000);
         }
 
         // Update cart UI
