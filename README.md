@@ -1693,7 +1693,7 @@
                             </div>
                             <div class="contact-text">
                                 <h4>Email Address</h4>
-                                <p>techizo786@gmail.com</p>
+                                <p>healixcare786@gmail.com</p>
                             </div>
                         </div>
                         
@@ -1850,7 +1850,7 @@
                         <li><i class="fas fa-map-marker-alt"></i> Faisalabad, Punjab, Pakistan</li>
                         <li><i class="fas fa-phone"></i> +92 3481869972</li>
                         <li><i class="fas fa-phone"></i> +92 3197247048</li>
-                        <li><i class="fas fa-envelope"></i> techizo786@gmail.com</li>
+                        <li><i class="fas fa-envelope"></i> healixcare786@gmail.com</li>
                     </ul>
                 </div>
             </div>
