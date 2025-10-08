@@ -2329,5 +2329,1123 @@
             });
         }
     </script>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECHIZO - Admin Portal</title>
+    <style>
+        :root {
+            --primary: #121212;
+            --secondary: #FF5722;
+            --accent: #D4AF37;
+            --light: #1E1E1E;
+            --dark: #0A0A0A;
+            --success: #4CAF50;
+            --danger: #F44336;
+            --text: #E0E0E0;
+            --text-secondary: #B0B0B0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary) 0%, #E64A19 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 87, 34, 0.5);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success) 0%, #2E7D32 100%);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-success:hover {
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.5);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #C62828 100%);
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+        }
+        
+        .btn-danger:hover {
+            box-shadow: 0 8px 25px rgba(244, 67, 54, 0.5);
+        }
+        
+        .btn-gold {
+            background: linear-gradient(135deg, var(--accent) 0%, #B8860B 100%);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+        
+        .btn-gold:hover {
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* Admin Header */
+        .admin-header {
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .admin-logo h1 {
+            font-size: 26px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .admin-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .admin-nav ul li {
+            margin-left: 20px;
+        }
+        
+        .admin-nav ul li a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .admin-nav ul li a.active {
+            color: white;
+            background: rgba(212, 175, 55, 0.2);
+        }
+        
+        /* Admin Login */
+        .admin-login {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 40px 0;
+        }
+        
+        .login-form {
+            background: rgba(30, 30, 30, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            background: rgba(10, 10, 10, 0.7);
+            color: var(--text);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+            padding: 40px 0;
+            min-height: 80vh;
+        }
+        
+        .dashboard-section {
+            display: none;
+            padding: 30px 0;
+        }
+        
+        .dashboard-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Stats Cards */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: rgba(30, 30, 30, 0.7);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .stat-card p {
+            color: var(--text-secondary);
+        }
+        
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 30px;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .admin-table th, .admin-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .admin-table th {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .admin-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .admin-table tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        /* Forms */
+        .admin-form {
+            background: rgba(30, 30, 30, 0.7);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Settings */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .setting-card {
+            background: rgba(30, 30, 30, 0.7);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .setting-card h3 {
+            margin-bottom: 20px;
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .admin-nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .admin-nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="container">
+            <div class="admin-header-content">
+                <div class="admin-logo">
+                    <h1>TECHIZO Admin</h1>
+                </div>
+                <nav class="admin-nav">
+                    <ul>
+                        <li><a class="dashboard-link active" data-section="dashboard">Dashboard</a></li>
+                        <li><a class="dashboard-link" data-section="products">Products</a></li>
+                        <li><a class="dashboard-link" data-section="orders">Orders</a></li>
+                        <li><a class="dashboard-link" data-section="settings">Settings</a></li>
+                        <li><a id="logout-btn">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Login -->
+    <section class="admin-login" id="admin-login">
+        <div class="container">
+            <div class="login-form">
+                <h2>Admin Login</h2>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter password">
+                </div>
+                <button class="btn btn-gold" id="login-btn" style="width: 100%;">Login</button>
+                <div id="login-error" style="color: var(--danger); margin-top: 15px; display: none;">Invalid username or password</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard -->
+    <section class="admin-dashboard" id="admin-dashboard">
+        <div class="container">
+            <!-- Dashboard Overview -->
+            <div class="dashboard-section active" id="dashboard-section">
+                <div class="section-title">
+                    <h2>Dashboard Overview</h2>
+                </div>
+                
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <h3 id="total-products">0</h3>
+                        <p>Total Products</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-orders">0</h3>
+                        <p>Total Orders</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="pending-orders">0</h3>
+                        <p>Pending Orders</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="total-revenue">$0</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+                
+                <div class="section-title">
+                    <h2>Recent Orders</h2>
+                </div>
+                
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-orders-table">
+                            <!-- Recent orders will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Products Management -->
+            <div class="dashboard-section" id="products-section">
+                <div class="section-title">
+                    <h2>Product Management</h2>
+                </div>
+                
+                <div class="admin-form">
+                    <h3 style="margin-bottom: 20px; color: var(--accent);" id="product-form-title">Add New Product</h3>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-name">Product Name</label>
+                            <input type="text" id="product-name" class="form-control" placeholder="Enter product name">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-category">Category</label>
+                            <select id="product-category" class="form-control">
+                                <option value="">Select Category</option>
+                                <option value="screen-protector">Screen Protector</option>
+                                <option value="phone-case">Phone Case</option>
+                                <option value="cable">Cable</option>
+                                <option value="charger">Charger</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-price">Price ($)</label>
+                            <input type="number" id="product-price" class="form-control" placeholder="Enter price" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-discount">Discount (%)</label>
+                            <input type="number" id="product-discount" class="form-control" placeholder="Enter discount" min="0" max="100" step="1">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-description">Description</label>
+                        <textarea id="product-description" class="form-control" rows="4" placeholder="Enter product description"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-image">Product Image</label>
+                        <input type="file" id="product-image" class="form-control" accept="image/*">
+                        <div class="image-preview" id="image-preview"></div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button class="btn btn-success" id="save-product">Save Product</button>
+                        <button class="btn btn-danger" id="cancel-edit" style="display: none;">Cancel</button>
+                    </div>
+                </div>
+                
+                <div class="section-title">
+                    <h2>All Products</h2>
+                </div>
+                
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Discount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-table">
+                            <!-- Products will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Orders Management -->
+            <div class="dashboard-section" id="orders-section">
+                <div class="section-title">
+                    <h2>Order Management</h2>
+                </div>
+                
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Products</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-table">
+                            <!-- Orders will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Settings -->
+            <div class="dashboard-section" id="settings-section">
+                <div class="section-title">
+                    <h2>Website Settings</h2>
+                </div>
+                
+                <div class="settings-grid">
+                    <div class="setting-card">
+                        <h3>Discount Settings</h3>
+                        <div class="form-group">
+                            <label for="global-discount">Global Discount (%)</label>
+                            <input type="number" id="global-discount" class="form-control" min="0" max="100" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="min-order-discount">Minimum Order for Discount ($)</label>
+                            <input type="number" id="min-order-discount" class="form-control" min="0" step="0.01">
+                        </div>
+                        <button class="btn btn-gold" id="save-discount-settings">Save Discount Settings</button>
+                    </div>
+                    
+                    <div class="setting-card">
+                        <h3>Delivery Settings</h3>
+                        <div class="form-group">
+                            <label for="delivery-charges">Delivery Charges ($)</label>
+                            <input type="number" id="delivery-charges" class="form-control" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="free-delivery-threshold">Free Delivery Threshold ($)</label>
+                            <input type="number" id="free-delivery-threshold" class="form-control" min="0" step="0.01">
+                        </div>
+                        <button class="btn btn-gold" id="save-delivery-settings">Save Delivery Settings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Admin credentials
+        const ADMIN_USERNAME = "He@lixcare786";
+        const ADMIN_PASSWORD = "Abdull@H1122";
+        
+        // DOM elements
+        const adminLogin = document.getElementById('admin-login');
+        const adminDashboard = document.getElementById('admin-dashboard');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const loginError = document.getElementById('login-error');
+        const dashboardLinks = document.querySelectorAll('.dashboard-link');
+        const dashboardSections = document.querySelectorAll('.dashboard-section');
+        
+        // Products management elements
+        const productFormTitle = document.getElementById('product-form-title');
+        const productName = document.getElementById('product-name');
+        const productCategory = document.getElementById('product-category');
+        const productPrice = document.getElementById('product-price');
+        const productDiscount = document.getElementById('product-discount');
+        const productDescription = document.getElementById('product-description');
+        const productImage = document.getElementById('product-image');
+        const imagePreview = document.getElementById('image-preview');
+        const saveProductBtn = document.getElementById('save-product');
+        const cancelEditBtn = document.getElementById('cancel-edit');
+        const productsTable = document.getElementById('products-table');
+        
+        // Settings elements
+        const globalDiscount = document.getElementById('global-discount');
+        const minOrderDiscount = document.getElementById('min-order-discount');
+        const deliveryCharges = document.getElementById('delivery-charges');
+        const freeDeliveryThreshold = document.getElementById('free-delivery-threshold');
+        const saveDiscountSettingsBtn = document.getElementById('save-discount-settings');
+        const saveDeliverySettingsBtn = document.getElementById('save-delivery-settings');
+        
+        // Dashboard elements
+        const totalProducts = document.getElementById('total-products');
+        const totalOrders = document.getElementById('total-orders');
+        const pendingOrders = document.getElementById('pending-orders');
+        const totalRevenue = document.getElementById('total-revenue');
+        const recentOrdersTable = document.getElementById('recent-orders-table');
+        const ordersTable = document.getElementById('orders-table');
+        
+        // State variables
+        let products = [];
+        let orders = [];
+        let settings = {};
+        let editingProductId = null;
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if admin is already logged in
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                showDashboard();
+            } else {
+                showLogin();
+            }
+            
+            // Load data from localStorage
+            loadProducts();
+            loadOrders();
+            loadSettings();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Update dashboard stats
+            updateDashboardStats();
+        });
+        
+        // Set up event listeners
+        function setupEventListeners() {
+            // Login
+            loginBtn.addEventListener('click', handleLogin);
+            
+            // Logout
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Dashboard navigation
+            dashboardLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    navigateToSection(section);
+                    
+                    // Update active link
+                    dashboardLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Product image preview
+            productImage.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Product Preview">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Save product
+            saveProductBtn.addEventListener('click', saveProduct);
+            
+            // Cancel edit
+            cancelEditBtn.addEventListener('click', cancelEdit);
+            
+            // Save settings
+            saveDiscountSettingsBtn.addEventListener('click', saveDiscountSettings);
+            saveDeliverySettingsBtn.addEventListener('click', saveDeliverySettings);
+        }
+        
+        // Handle login
+        function handleLogin() {
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+            
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                localStorage.setItem('adminLoggedIn', 'true');
+                showDashboard();
+            } else {
+                loginError.style.display = 'block';
+            }
+        }
+        
+        // Handle logout
+        function handleLogout() {
+            localStorage.removeItem('adminLoggedIn');
+            showLogin();
+            resetForm();
+        }
+        
+        // Show login page
+        function showLogin() {
+            adminLogin.style.display = 'flex';
+            adminDashboard.style.display = 'none';
+        }
+        
+        // Show dashboard
+        function showDashboard() {
+            adminLogin.style.display = 'none';
+            adminDashboard.style.display = 'block';
+        }
+        
+        // Navigate to section
+        function navigateToSection(section) {
+            dashboardSections.forEach(sec => {
+                sec.classList.remove('active');
+            });
+            
+            document.getElementById(`${section}-section`).classList.add('active');
+        }
+        
+        // Load products from localStorage
+        function loadProducts() {
+            const storedProducts = localStorage.getItem('techizo_products');
+            if (storedProducts) {
+                products = JSON.parse(storedProducts);
+                renderProductsTable();
+            }
+        }
+        
+        // Load orders from localStorage
+        function loadOrders() {
+            const storedOrders = localStorage.getItem('techizo_orders');
+            if (storedOrders) {
+                orders = JSON.parse(storedOrders);
+                renderOrdersTable();
+                renderRecentOrdersTable();
+            }
+        }
+        
+        // Load settings from localStorage
+        function loadSettings() {
+            const storedSettings = localStorage.getItem('techizo_settings');
+            if (storedSettings) {
+                settings = JSON.parse(storedSettings);
+                
+                // Update settings form
+                if (settings.globalDiscount !== undefined) {
+                    globalDiscount.value = settings.globalDiscount;
+                }
+                
+                if (settings.minOrderDiscount !== undefined) {
+                    minOrderDiscount.value = settings.minOrderDiscount;
+                }
+                
+                if (settings.deliveryCharges !== undefined) {
+                    deliveryCharges.value = settings.deliveryCharges;
+                }
+                
+                if (settings.freeDeliveryThreshold !== undefined) {
+                    freeDeliveryThreshold.value = settings.freeDeliveryThreshold;
+                }
+            }
+        }
+        
+        // Save product
+        function saveProduct() {
+            // Validation
+            if (!productName.value || !productCategory.value || !productPrice.value) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const product = {
+                id: editingProductId || Date.now(),
+                name: productName.value,
+                category: productCategory.value,
+                price: parseFloat(productPrice.value),
+                discount: parseInt(productDiscount.value) || 0,
+                description: productDescription.value,
+                featured: false
+            };
+            
+            // Handle image
+            if (productImage.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    product.image = e.target.result;
+                    
+                    // Save product
+                    if (editingProductId) {
+                        // Update existing product
+                        const index = products.findIndex(p => p.id === editingProductId);
+                        if (index !== -1) {
+                            products[index] = product;
+                        }
+                    } else {
+                        // Add new product
+                        products.push(product);
+                    }
+                    
+                    // Save to localStorage and update UI
+                    localStorage.setItem('techizo_products', JSON.stringify(products));
+                    renderProductsTable();
+                    updateDashboardStats();
+                    resetForm();
+                };
+                reader.readAsDataURL(productImage.files[0]);
+            } else {
+                // If no new image, keep existing image when editing
+                if (editingProductId) {
+                    const existingProduct = products.find(p => p.id === editingProductId);
+                    if (existingProduct) {
+                        product.image = existingProduct.image;
+                    }
+                } else {
+                    // Use default image for new products without image
+                    product.image = 'https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80';
+                }
+                
+                // Save product
+                if (editingProductId) {
+                    // Update existing product
+                    const index = products.findIndex(p => p.id === editingProductId);
+                    if (index !== -1) {
+                        products[index] = product;
+                    }
+                } else {
+                    // Add new product
+                    products.push(product);
+                }
+                
+                // Save to localStorage and update UI
+                localStorage.setItem('techizo_products', JSON.stringify(products));
+                renderProductsTable();
+                updateDashboardStats();
+                resetForm();
+            }
+        }
+        
+        // Edit product
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                productName.value = product.name;
+                productCategory.value = product.category;
+                productPrice.value = product.price;
+                productDiscount.value = product.discount;
+                productDescription.value = product.description;
+                
+                // Show image preview
+                if (product.image) {
+                    imagePreview.innerHTML = `<img src="${product.image}" alt="Product Preview">`;
+                }
+                
+                // Update form title and buttons
+                productFormTitle.textContent = 'Edit Product';
+                saveProductBtn.textContent = 'Update Product';
+                cancelEditBtn.style.display = 'inline-block';
+                
+                // Set editing mode
+                editingProductId = id;
+                
+                // Scroll to form
+                document.getElementById('products-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Delete product
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('techizo_products', JSON.stringify(products));
+                renderProductsTable();
+                updateDashboardStats();
+            }
+        }
+        
+        // Cancel edit
+        function cancelEdit() {
+            resetForm();
+        }
+        
+        // Reset form
+        function resetForm() {
+            productName.value = '';
+            productCategory.value = '';
+            productPrice.value = '';
+            productDiscount.value = '';
+            productDescription.value = '';
+            productImage.value = '';
+            imagePreview.innerHTML = '';
+            
+            productFormTitle.textContent = 'Add New Product';
+            saveProductBtn.textContent = 'Save Product';
+            cancelEditBtn.style.display = 'none';
+            
+            editingProductId = null;
+        }
+        
+        // Render products table
+        function renderProductsTable() {
+            productsTable.innerHTML = '';
+            
+            if (products.length === 0) {
+                productsTable.innerHTML = '<tr><td colspan="6" style="text-align: center;">No products found</td></tr>';
+                return;
+            }
+            
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td><img src="${product.image}" alt="${product.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;"></td>
+                    <td>${product.name}</td>
+                    <td>${product.category}</td>
+                    <td>$${product.price.toFixed(2)}</td>
+                    <td>${product.discount}%</td>
+                    <td class="action-buttons">
+                        <button class="action-btn btn-gold" onclick="editProduct(${product.id})">Edit</button>
+                        <button class="action-btn btn-danger" onclick="deleteProduct(${product.id})">Delete</button>
+                    </td>
+                `;
+                
+                productsTable.appendChild(row);
+            });
+        }
+        
+        // Render orders table
+        function renderOrdersTable() {
+            ordersTable.innerHTML = '';
+            
+            if (orders.length === 0) {
+                ordersTable.innerHTML = '<tr><td colspan="9" style="text-align: center;">No orders found</td></tr>';
+                return;
+            }
+            
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                
+                // Format products list
+                const productsList = order.items.map(item => 
+                    `${item.name} (x${item.quantity})`
+                ).join(', ');
+                
+                row.innerHTML = `
+                    <td>#${order.id}</td>
+                    <td>${order.customer.name}</td>
+                    <td>${order.customer.email}</td>
+                    <td>${order.customer.phone}</td>
+                    <td>${order.customer.address}</td>
+                    <td>${productsList}</td>
+                    <td>$${order.total.toFixed(2)}</td>
+                    <td>${order.status}</td>
+                    <td class="action-buttons">
+                        <button class="action-btn btn-success" onclick="updateOrderStatus(${order.id}, 'completed')">Complete</button>
+                        <button class="action-btn btn-danger" onclick="updateOrderStatus(${order.id}, 'cancelled')">Cancel</button>
+                    </td>
+                `;
+                
+                ordersTable.appendChild(row);
+            });
+        }
+        
+        // Render recent orders table
+        function renderRecentOrdersTable() {
+            recentOrdersTable.innerHTML = '';
+            
+            // Get recent orders (last 5)
+            const recentOrders = orders.slice(-5).reverse();
+            
+            if (recentOrders.length === 0) {
+                recentOrdersTable.innerHTML = '<tr><td colspan="5" style="text-align: center;">No recent orders</td></tr>';
+                return;
+            }
+            
+            recentOrders.forEach(order => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>#${order.id}</td>
+                    <td>${order.customer.name}</td>
+                    <td>${new Date(order.date).toLocaleDateString()}</td>
+                    <td>$${order.total.toFixed(2)}</td>
+                    <td>${order.status}</td>
+                `;
+                
+                recentOrdersTable.appendChild(row);
+            });
+        }
+        
+        // Update order status
+        function updateOrderStatus(orderId, status) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = status;
+                localStorage.setItem('techizo_orders', JSON.stringify(orders));
+                renderOrdersTable();
+                renderRecentOrdersTable();
+                updateDashboardStats();
+            }
+        }
+        
+        // Save discount settings
+        function saveDiscountSettings() {
+            settings.globalDiscount = parseInt(globalDiscount.value) || 0;
+            settings.minOrderDiscount = parseFloat(minOrderDiscount.value) || 0;
+            
+            localStorage.setItem('techizo_settings', JSON.stringify(settings));
+            alert('Discount settings saved successfully!');
+        }
+        
+        // Save delivery settings
+        function saveDeliverySettings() {
+            settings.deliveryCharges = parseFloat(deliveryCharges.value) || 0;
+            settings.freeDeliveryThreshold = parseFloat(freeDeliveryThreshold.value) || 0;
+            
+            localStorage.setItem('techizo_settings', JSON.stringify(settings));
+            alert('Delivery settings saved successfully!');
+        }
+        
+        // Update dashboard statistics
+        function updateDashboardStats() {
+            // Total products
+            totalProducts.textContent = products.length;
+            
+            // Total orders
+            totalOrders.textContent = orders.length;
+            
+            // Pending orders
+            const pending = orders.filter(order => order.status === 'pending').length;
+            pendingOrders.textContent = pending;
+            
+            // Total revenue
+            const revenue = orders
+                .filter(order => order.status === 'completed')
+                .reduce((total, order) => total + order.total, 0);
+            totalRevenue.textContent = `$${revenue.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
 </body>
 </html>
