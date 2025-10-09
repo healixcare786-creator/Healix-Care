@@ -2401,6 +2401,7 @@
                             <h3 data-key="cart.empty">Your cart is empty</h3>
                             <p data-key="cart.empty.text">Add some products to your cart</p>
                             <a class="btn" data-page="products" style="margin-top: 20px;" data-key="cart.continue">Continue Shopping</a>
+                                                            <button type="submit"><span class="icon_mail_alt"></span></button>
                         </div>
                     </div>
                 </div>
