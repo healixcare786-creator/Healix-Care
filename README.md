@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -268,10 +267,12 @@
             list-style: none;
             justify-content: center;
             flex-wrap: wrap;
+            position: relative;
         }
         
         nav ul li {
             margin: 0 15px;
+            position: relative;
         }
         
         nav ul li a {
@@ -303,6 +304,55 @@
         
         nav ul li a:hover, nav ul li a.active {
             color: white;
+        }
+        
+        /* Dropdown Menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(10px);
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 1000;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 10px 0;
+            margin-top: 10px;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        
+        .dropdown-menu li {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-radius: 0;
+        }
+        
+        .dropdown-menu li a:hover {
+            background: rgba(212, 175, 55, 0.1);
+            color: white;
+        }
+        
+        .dropdown-menu li a::before {
+            display: none;
+        }
+        
+        body[dir="rtl"] .dropdown-menu {
+            left: auto;
+            right: 0;
         }
         
         .cart-icon {
@@ -1991,7 +2041,17 @@
                     <nav>
                         <ul>
                             <li><a class="nav-link active" data-page="home" data-key="nav.home">Home</a></li>
-                            <li><a class="nav-link" data-page="products" data-key="nav.products">Products</a></li>
+                            <li class="dropdown">
+                                <a class="nav-link" data-key="nav.products">Products</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link" data-page="products" data-category="all">All Products</a></li>
+                                    <li><a class="nav-link" data-page="products" data-category="screen-protector">Screen Protectors</a></li>
+                                    <li><a class="nav-link" data-page="products" data-category="phone-case">Phone Cases</a></li>
+                                    <li><a class="nav-link" data-page="products" data-category="charger">Chargers</a></li>
+                                    <li><a class="nav-link" data-page="products" data-category="cable">Data Cables</a></li>
+                                    <li><a class="nav-link" data-page="products" data-category="other">Others</a></li>
+                                </ul>
+                            </li>
                             <li><a class="nav-link" data-page="about" data-key="nav.about">About</a></li>
                             <li><a class="nav-link" data-page="contact" data-key="nav.contact">Contact</a></li>
                             <li class="cart-icon">
@@ -2139,6 +2199,14 @@
             <div class="container">
                 <div class="section-title">
                     <h2 data-key="products.all">All Products</h2>
+                </div>
+                <div class="category-filters" id="category-filters" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap;">
+                    <button class="btn category-filter active" data-category="all">All Products</button>
+                    <button class="btn category-filter" data-category="screen-protector">Screen Protectors</button>
+                    <button class="btn category-filter" data-category="phone-case">Phone Cases</button>
+                    <button class="btn category-filter" data-category="charger">Chargers</button>
+                    <button class="btn category-filter" data-category="cable">Data Cables</button>
+                    <button class="btn category-filter" data-category="other">Others</button>
                 </div>
                 <div class="products-grid" id="all-products-container">
                     <!-- All products will be dynamically added here -->
@@ -2465,8 +2533,8 @@
                                     <option value="">Select Category</option>
                                     <option value="screen-protector">Screen Protector</option>
                                     <option value="phone-case">Phone Case</option>
-                                    <option value="cable">Cable</option>
                                     <option value="charger">Charger</option>
+                                    <option value="cable">Data Cable</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>
@@ -2489,9 +2557,15 @@
                         </div>
                         
                         <div class="admin-form-group">
-                            <label for="product-image">Product Image</label>
-                            <input type="file" id="product-image" class="admin-form-control" accept="image/*">
+                            <label for="product-image">Product Image URL</label>
+                            <input type="text" id="product-image" class="admin-form-control" placeholder="Enter image URL">
                             <div class="image-preview" id="image-preview"></div>
+                        </div>
+                        
+                        <div class="admin-form-group">
+                            <label for="product-featured">
+                                <input type="checkbox" id="product-featured"> Featured Product
+                            </label>
                         </div>
                         
                         <div class="form-actions">
@@ -2513,6 +2587,7 @@
                                     <th>Category</th>
                                     <th>Price</th>
                                     <th>Discount</th>
+                                    <th>Featured</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -2765,69 +2840,79 @@
         // Current language
         let currentLanguage = 'en';
 
-        // Sample products data
-        var products = [
-            {
-                id: 1,
-                name: "Tempered Glass Screen Protector",
-                description: "9H hardness tempered glass with oleophobic coating to resist fingerprints.",
-                price: 12.99,
-                discount: 10,
-                image: "https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-                category: "screen-protector",
-                featured: true
-            },
-            {
-                id: 2,
-                name: "Silicone Phone Case",
-                description: "Shock-absorbent silicone case with raised edges for screen protection.",
-                price: 18.99,
-                discount: 15,
-                image: "https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                category: "phone-case",
-                featured: true
-            },
-            {
-                id: 3,
-                name: "USB-C to USB Adapter",
-                description: "High-speed OTG adapter for connecting USB devices to your smartphone.",
-                price: 8.99,
-                discount: 0,
-                image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=684&q=80",
-                category: "cable",
-                featured: false
-            },
-            {
-                id: 4,
-                name: "Fast Charging Cable",
-                description: "Durable braided USB-C cable with fast charging capability.",
-                price: 14.99,
-                discount: 20,
-                image: "https://images.unsplash.com/photo-1605784407953-8fe7c72dab4d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                category: "cable",
-                featured: true
-            },
-            {
-                id: 5,
-                name: "Wireless Charging Pad",
-                description: "10W fast wireless charging pad with LED indicator.",
-                price: 24.99,
-                discount: 5,
-                image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
-                category: "charger",
-                featured: false
-            },
-            {
-                id: 6,
-                name: "Car Phone Holder",
-                description: "Adjustable car vent phone holder with strong grip.",
-                price: 15.99,
-                discount: 0,
-                image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                category: "other",
-                featured: false
+        // Initialize products from localStorage or use default
+        function initializeProducts() {
+            const storedProducts = localStorage.getItem('techizo_products');
+            if (storedProducts) {
+                return JSON.parse(storedProducts);
+            } else {
+                // Default products
+                const defaultProducts = [
+                    {
+                        id: 1,
+                        name: "Tempered Glass Screen Protector",
+                        description: "9H hardness tempered glass with oleophobic coating to resist fingerprints.",
+                        price: 12.99,
+                        discount: 10,
+                        image: "https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                        category: "screen-protector",
+                        featured: true
+                    },
+                    {
+                        id: 2,
+                        name: "Silicone Phone Case",
+                        description: "Shock-absorbent silicone case with raised edges for screen protection.",
+                        price: 18.99,
+                        discount: 15,
+                        image: "https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "phone-case",
+                        featured: true
+                    },
+                    {
+                        id: 3,
+                        name: "USB-C to USB Adapter",
+                        description: "High-speed OTG adapter for connecting USB devices to your smartphone.",
+                        price: 8.99,
+                        discount: 0,
+                        image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=684&q=80",
+                        category: "cable",
+                        featured: false
+                    },
+                    {
+                        id: 4,
+                        name: "Fast Charging Cable",
+                        description: "Durable braided USB-C cable with fast charging capability.",
+                        price: 14.99,
+                        discount: 20,
+                        image: "https://images.unsplash.com/photo-1605784407953-8fe7c72dab4d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "cable",
+                        featured: true
+                    },
+                    {
+                        id: 5,
+                        name: "Wireless Charging Pad",
+                        description: "10W fast wireless charging pad with LED indicator.",
+                        price: 24.99,
+                        discount: 5,
+                        image: "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
+                        category: "charger",
+                        featured: false
+                    },
+                    {
+                        id: 6,
+                        name: "Car Phone Holder",
+                        description: "Adjustable car vent phone holder with strong grip.",
+                        price: 15.99,
+                        discount: 0,
+                        image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "other",
+                        featured: false
+                    }
+                ];
+                localStorage.setItem('techizo_products', JSON.stringify(defaultProducts));
+                return defaultProducts;
             }
-        ];
+        }
 
         // Shopping cart
         var cart = [];
@@ -2851,6 +2936,7 @@
         var adminAccessLink = document.getElementById('admin-access-link');
         var cartNotification = document.getElementById('cart-notification');
         var languageSelector = document.getElementById('language-selector');
+        var categoryFilters = document.querySelectorAll('.category-filter');
 
         // Admin Portal Elements
         var mainWebsite = document.getElementById('main-website');
@@ -2874,6 +2960,7 @@
         const productDiscount = document.getElementById('product-discount');
         const productDescription = document.getElementById('product-description');
         const productImage = document.getElementById('product-image');
+        const productFeatured = document.getElementById('product-featured');
         const imagePreview = document.getElementById('image-preview');
         const saveProductBtn = document.getElementById('save-product');
         const cancelEditBtn = document.getElementById('cancel-edit');
@@ -2896,6 +2983,7 @@
         const ordersTable = document.getElementById('orders-table');
         
         // State variables
+        let products = initializeProducts();
         let orders = [];
         let settings = {};
         let editingProductId = null;
@@ -2915,7 +3003,20 @@
             navLinks.forEach(function(link) {
                 link.addEventListener('click', function() {
                     var page = this.getAttribute('data-page');
-                    navigateToPage(page);
+                    var category = this.getAttribute('data-category');
+                    navigateToPage(page, category);
+                });
+            });
+            
+            // Set up category filters
+            categoryFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    filterProductsByCategory(category);
+                    
+                    // Update active filter
+                    categoryFilters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
                 });
             });
             
@@ -3041,14 +3142,12 @@
             });
             
             // Product image preview
-            productImage.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        imagePreview.innerHTML = `<img src="${e.target.result}" alt="Product Preview">`;
-                    };
-                    reader.readAsDataURL(file);
+            productImage.addEventListener('input', function(e) {
+                const url = e.target.value;
+                if (url) {
+                    imagePreview.innerHTML = `<img src="${url}" alt="Product Preview">`;
+                } else {
+                    imagePreview.innerHTML = '';
                 }
             });
             
@@ -3182,72 +3281,31 @@
                 price: parseFloat(productPrice.value),
                 discount: parseInt(productDiscount.value) || 0,
                 description: productDescription.value,
-                featured: false
+                image: productImage.value || 'https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80',
+                featured: productFeatured.checked
             };
             
-            // Handle image
-            if (productImage.files.length > 0) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    product.image = e.target.result;
-                    
-                    // Save product
-                    if (editingProductId) {
-                        // Update existing product
-                        const index = products.findIndex(p => p.id === editingProductId);
-                        if (index !== -1) {
-                            products[index] = product;
-                        }
-                    } else {
-                        // Add new product
-                        products.push(product);
-                    }
-                    
-                    // Save to localStorage and update UI
-                    localStorage.setItem('techizo_products', JSON.stringify(products));
-                    renderProductsTable();
-                    updateDashboardStats();
-                    resetForm();
-                    
-                    // Update main website
-                    renderFeaturedProducts();
-                    renderAllProducts();
-                };
-                reader.readAsDataURL(productImage.files[0]);
+            // Save product
+            if (editingProductId) {
+                // Update existing product
+                const index = products.findIndex(p => p.id === editingProductId);
+                if (index !== -1) {
+                    products[index] = product;
+                }
             } else {
-                // If no new image, keep existing image when editing
-                if (editingProductId) {
-                    const existingProduct = products.find(p => p.id === editingProductId);
-                    if (existingProduct) {
-                        product.image = existingProduct.image;
-                    }
-                } else {
-                    // Use default image for new products without image
-                    product.image = 'https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80';
-                }
-                
-                // Save product
-                if (editingProductId) {
-                    // Update existing product
-                    const index = products.findIndex(p => p.id === editingProductId);
-                    if (index !== -1) {
-                        products[index] = product;
-                    }
-                } else {
-                    // Add new product
-                    products.push(product);
-                }
-                
-                // Save to localStorage and update UI
-                localStorage.setItem('techizo_products', JSON.stringify(products));
-                renderProductsTable();
-                updateDashboardStats();
-                resetForm();
-                
-                // Update main website
-                renderFeaturedProducts();
-                renderAllProducts();
+                // Add new product
+                products.push(product);
             }
+            
+            // Save to localStorage and update UI
+            localStorage.setItem('techizo_products', JSON.stringify(products));
+            renderProductsTable();
+            updateDashboardStats();
+            resetForm();
+            
+            // Update main website
+            renderFeaturedProducts();
+            renderAllProducts();
         }
         
         // Edit product
@@ -3259,6 +3317,8 @@
                 productPrice.value = product.price;
                 productDiscount.value = product.discount;
                 productDescription.value = product.description;
+                productImage.value = product.image;
+                productFeatured.checked = product.featured;
                 
                 // Show image preview
                 if (product.image) {
@@ -3305,6 +3365,7 @@
             productDiscount.value = '';
             productDescription.value = '';
             productImage.value = '';
+            productFeatured.checked = false;
             imagePreview.innerHTML = '';
             
             productFormTitle.textContent = currentLanguage === 'en' ? 'Add New Product' : 'إضافة منتج جديد';
@@ -3319,7 +3380,7 @@
             productsTable.innerHTML = '';
             
             if (products.length === 0) {
-                productsTable.innerHTML = '<tr><td colspan="6" style="text-align: center;">No products found</td></tr>';
+                productsTable.innerHTML = '<tr><td colspan="7" style="text-align: center;">No products found</td></tr>';
                 return;
             }
             
@@ -3332,6 +3393,7 @@
                     <td>${product.category}</td>
                     <td>$${product.price.toFixed(2)}</td>
                     <td>${product.discount}%</td>
+                    <td>${product.featured ? 'Yes' : 'No'}</td>
                     <td class="action-buttons">
                         <button class="action-btn btn-gold" onclick="editProduct(${product.id})">${currentLanguage === 'en' ? 'Edit' : 'تحرير'}</button>
                         <button class="action-btn btn-danger" onclick="deleteProduct(${product.id})">${currentLanguage === 'en' ? 'Delete' : 'حذف'}</button>
@@ -3575,7 +3637,7 @@
         }
 
         // Navigate to a specific page
-        function navigateToPage(page) {
+        function navigateToPage(page, category = null) {
             // Hide all pages
             pageSections.forEach(function(section) {
                 section.classList.remove('active');
@@ -3599,6 +3661,36 @@
             if (page === 'cart') {
                 renderCartItems();
             }
+            
+            // Filter products by category if specified
+            if (page === 'products' && category) {
+                filterProductsByCategory(category);
+                
+                // Update active filter
+                categoryFilters.forEach(f => {
+                    f.classList.remove('active');
+                    if (f.getAttribute('data-category') === category) {
+                        f.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Filter products by category
+        function filterProductsByCategory(category) {
+            const allProductsContainer = document.getElementById('all-products-container');
+            allProductsContainer.innerHTML = '';
+            
+            let filteredProducts = products;
+            
+            if (category !== 'all') {
+                filteredProducts = products.filter(product => product.category === category);
+            }
+            
+            filteredProducts.forEach(function(product) {
+                var productCard = createProductCard(product);
+                allProductsContainer.appendChild(productCard);
+            });
         }
 
         // Render featured products on the home page
