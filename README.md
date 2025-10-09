@@ -1928,6 +1928,45 @@
             font-size: 1.3rem;
         }
         
+        /* File Upload Styles */
+        .file-upload-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .file-upload-label {
+            display: block;
+            padding: 12px 20px;
+            background: rgba(10, 10, 10, 0.7);
+            border: 1px dashed rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-secondary);
+        }
+        
+        .file-upload-label:hover {
+            background: rgba(30, 30, 30, 0.9);
+            border-color: var(--accent);
+        }
+        
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .uploaded-file-name {
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .header-content {
@@ -2556,11 +2595,15 @@
                             <textarea id="product-description" class="admin-form-control" rows="4" placeholder="Enter product description"></textarea>
                         </div>
                         
-                        <div class="admin-form-group">
-                            <label for="product-image">Product Image URL</label>
-                            <input type="text" id="product-image" class="admin-form-control" placeholder="Enter image URL">
-                            <div class="image-preview" id="image-preview"></div>
+                        <div class="file-upload-container">
+                            <label class="file-upload-label" for="product-image-upload">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Product Image
+                            </label>
+                            <input type="file" id="product-image-upload" class="file-upload-input" accept="image/*">
+                            <div class="uploaded-file-name" id="uploaded-file-name"></div>
                         </div>
+                        
+                        <div class="image-preview" id="image-preview"></div>
                         
                         <div class="admin-form-group">
                             <label for="product-featured">
@@ -2959,7 +3002,8 @@
         const productPrice = document.getElementById('product-price');
         const productDiscount = document.getElementById('product-discount');
         const productDescription = document.getElementById('product-description');
-        const productImage = document.getElementById('product-image');
+        const productImageUpload = document.getElementById('product-image-upload');
+        const uploadedFileName = document.getElementById('uploaded-file-name');
         const productFeatured = document.getElementById('product-featured');
         const imagePreview = document.getElementById('image-preview');
         const saveProductBtn = document.getElementById('save-product');
@@ -2987,6 +3031,7 @@
         let orders = [];
         let settings = {};
         let editingProductId = null;
+        let uploadedImageBase64 = null;
 
         // Admin credentials
         const ADMIN_USERNAME = "He@lixcare786";
@@ -3141,15 +3186,8 @@
                 });
             });
             
-            // Product image preview
-            productImage.addEventListener('input', function(e) {
-                const url = e.target.value;
-                if (url) {
-                    imagePreview.innerHTML = `<img src="${url}" alt="Product Preview">`;
-                } else {
-                    imagePreview.innerHTML = '';
-                }
-            });
+            // Product image upload
+            productImageUpload.addEventListener('change', handleImageUpload);
             
             // Save product
             saveProductBtn.addEventListener('click', saveProduct);
@@ -3160,6 +3198,34 @@
             // Save settings
             saveDiscountSettingsBtn.addEventListener('click', saveDiscountSettings);
             saveDeliverySettingsBtn.addEventListener('click', saveDeliverySettings);
+        }
+        
+        // Handle image upload
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Check if file is an image
+                if (!file.type.match('image.*')) {
+                    alert(currentLanguage === 'en' ? 'Please select an image file' : 'يرجى اختيار ملف صورة');
+                    return;
+                }
+                
+                // Update file name display
+                uploadedFileName.textContent = file.name;
+                
+                // Create a FileReader to read the file
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    // Convert image to base64
+                    uploadedImageBase64 = event.target.result;
+                    
+                    // Show image preview
+                    imagePreview.innerHTML = `<img src="${uploadedImageBase64}" alt="Product Preview">`;
+                };
+                
+                reader.readAsDataURL(file);
+            }
         }
         
         // Handle login
@@ -3199,6 +3265,11 @@
         function showMainWebsite() {
             mainWebsite.style.display = 'block';
             adminPortal.style.display = 'none';
+            
+            // Reload products to ensure we have the latest data
+            products = initializeProducts();
+            renderFeaturedProducts();
+            renderAllProducts();
         }
         
         // Show admin login
@@ -3274,6 +3345,22 @@
                 return;
             }
             
+            // Use uploaded image if available, otherwise use a placeholder
+            let imageUrl = uploadedImageBase64;
+            
+            // If no image uploaded and we're editing, keep the existing image
+            if (!imageUrl && editingProductId) {
+                const existingProduct = products.find(p => p.id === editingProductId);
+                if (existingProduct) {
+                    imageUrl = existingProduct.image;
+                }
+            }
+            
+            // If still no image, use a placeholder
+            if (!imageUrl) {
+                imageUrl = 'https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80';
+            }
+            
             const product = {
                 id: editingProductId || Date.now(),
                 name: productName.value,
@@ -3281,7 +3368,7 @@
                 price: parseFloat(productPrice.value),
                 discount: parseInt(productDiscount.value) || 0,
                 description: productDescription.value,
-                image: productImage.value || 'https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80',
+                image: imageUrl,
                 featured: productFeatured.checked
             };
             
@@ -3306,6 +3393,8 @@
             // Update main website
             renderFeaturedProducts();
             renderAllProducts();
+            
+            alert(currentLanguage === 'en' ? 'Product saved successfully!' : 'تم حفظ المنتج بنجاح!');
         }
         
         // Edit product
@@ -3317,7 +3406,6 @@
                 productPrice.value = product.price;
                 productDiscount.value = product.discount;
                 productDescription.value = product.description;
-                productImage.value = product.image;
                 productFeatured.checked = product.featured;
                 
                 // Show image preview
@@ -3349,6 +3437,8 @@
                 // Update main website
                 renderFeaturedProducts();
                 renderAllProducts();
+                
+                alert(currentLanguage === 'en' ? 'Product deleted successfully!' : 'تم حذف المنتج بنجاح!');
             }
         }
         
@@ -3364,9 +3454,11 @@
             productPrice.value = '';
             productDiscount.value = '';
             productDescription.value = '';
-            productImage.value = '';
+            productImageUpload.value = '';
             productFeatured.checked = false;
             imagePreview.innerHTML = '';
+            uploadedFileName.textContent = '';
+            uploadedImageBase64 = null;
             
             productFormTitle.textContent = currentLanguage === 'en' ? 'Add New Product' : 'إضافة منتج جديد';
             saveProductBtn.textContent = currentLanguage === 'en' ? 'Save Product' : 'حفظ المنتج';
