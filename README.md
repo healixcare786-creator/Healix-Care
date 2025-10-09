@@ -3091,14 +3091,12 @@
                 </div>
             </section>
         </section>
-
         <!-- Products Page -->
         <section id="products-page" class="page-section">
             <div class="container">
                 <div class="section-title">
                     <h2 data-key="products.all">All Products</h2>
                 </div>
-                
                 <!-- Product Categories Filter -->
                 <div class="categories-filter">
                     <button class="category-btn active" data-category="all">All Products</button>
