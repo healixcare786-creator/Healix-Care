@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -31,6 +31,86 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+        
+        /* RTL Support */
+        body[dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+        
+        body[dir="rtl"] .header-content,
+        body[dir="rtl"] .footer-content,
+        body[dir="rtl"] .contact-container,
+        body[dir="rtl"] .robot-container,
+        body[dir="rtl"] .slide {
+            direction: rtl;
+        }
+        
+        body[dir="rtl"] .logo-img {
+            margin-right: 0;
+            margin-left: 12px;
+        }
+        
+        body[dir="rtl"] nav ul li {
+            margin-left: 0;
+            margin-right: 20px;
+        }
+        
+        body[dir="rtl"] .cart-icon .cart-count {
+            right: auto;
+            left: -8px;
+        }
+        
+        body[dir="rtl"] .language-selector {
+            margin-left: 0;
+            margin-right: 20px;
+        }
+        
+        body[dir="rtl"] .language-selector select {
+            margin-left: 0;
+            margin-right: 10px;
+        }
+        
+        body[dir="rtl"] .section-title h2::after {
+            left: auto;
+            right: 50%;
+            transform: translateX(50%);
+        }
+        
+        body[dir="rtl"] .contact-icon {
+            margin-right: 0;
+            margin-left: 20px;
+        }
+        
+        body[dir="rtl"] .whatsapp-help {
+            right: auto;
+            left: 20px;
+        }
+        
+        body[dir="rtl"] .robot-info {
+            padding: 0 0 0 40px;
+        }
+        
+        body[dir="rtl"] .slide-content {
+            padding-right: 0;
+            padding-left: 40px;
+        }
+        
+        body[dir="rtl"] .cart-item-image {
+            margin-right: 0;
+            margin-left: 20px;
+        }
+        
+        body[dir="rtl"] .footer-column h3::after {
+            left: auto;
+            right: 0;
+        }
+        
+        body[dir="rtl"] .social-links-contact a,
+        body[dir="rtl"] .social-links a {
+            margin-right: 0;
+            margin-left: 15px;
         }
         
         .container {
@@ -119,27 +199,62 @@
         
         .header-content {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            position: relative;
         }
         
         .logo {
             display: flex;
             align-items: center;
             text-decoration: none;
+            margin-bottom: 15px;
         }
         
-        .logo-img {
-            width: 50px;
-            height: 50px;
-            margin-right: 12px;
+        .logo-text {
+            font-size: 36px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+        }
+        
+        .power-button {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent) 0%, #B8860B 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-left: 5px;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
             animation: pulse 2s infinite;
+            position: relative;
             overflow: hidden;
+        }
+        
+        .power-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .power-button:hover::before {
+            left: 100%;
+        }
+        
+        .power-button i {
+            color: white;
+            font-size: 20px;
         }
         
         @keyframes pulse {
@@ -148,29 +263,15 @@
             100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
         }
         
-        .logo-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
-        }
-        
-        .logo h1 {
-            font-size: 26px;
-            background: linear-gradient(45deg, var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        
         nav ul {
             display: flex;
             list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
         }
         
         nav ul li {
-            margin-left: 20px;
+            margin: 0 15px;
         }
         
         nav ul li a {
@@ -225,18 +326,31 @@
             box-shadow: 0 2px 8px rgba(255, 87, 34, 0.5);
         }
         
+        /* Language Selector - Below Header */
         .language-selector {
             display: flex;
             align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            background: rgba(30, 30, 30, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .language-selector span {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-right: 10px;
         }
         
         .language-selector select {
-            padding: 8px 12px;
+            padding: 5px 10px;
             border-radius: 6px;
             border: 1px solid rgba(212, 175, 55, 0.3);
             background: rgba(30, 30, 30, 0.8);
             color: var(--text);
-            margin-left: 10px;
+            font-size: 14px;
             transition: all 0.3s;
         }
         
@@ -1782,7 +1896,11 @@
             }
             
             .language-selector {
+                position: static;
                 margin-top: 15px;
+                background: transparent;
+                border: none;
+                padding: 0;
             }
             
             .hero-title {
@@ -1866,28 +1984,27 @@
             <div class="container">
                 <div class="header-content">
                     <a href="#" class="logo" data-page="home">
-                        <div class="logo-img">
-                            <img src="https://drive.google.com/uc?export=download&id=1XOt-PieewIUE4GsP9YFpwlXKBu7Xv5pe" alt="TECHIZO Logo">
-                        </div>
-                        <h1>TECHIZO</h1>
+                        <h1 class="logo-text">
+                            TECHIZ<span class="power-button"><i class="fas fa-power-off"></i></span>
+                        </h1>
                     </a>
                     <nav>
                         <ul>
-                            <li><a class="nav-link active" data-page="home">Home</a></li>
-                            <li><a class="nav-link" data-page="products">Products</a></li>
-                            <li><a class="nav-link" data-page="about">About</a></li>
-                            <li><a class="nav-link" data-page="contact">Contact</a></li>
+                            <li><a class="nav-link active" data-page="home" data-key="nav.home">Home</a></li>
+                            <li><a class="nav-link" data-page="products" data-key="nav.products">Products</a></li>
+                            <li><a class="nav-link" data-page="about" data-key="nav.about">About</a></li>
+                            <li><a class="nav-link" data-page="contact" data-key="nav.contact">Contact</a></li>
                             <li class="cart-icon">
                                 <a class="nav-link" data-page="cart">
                                     <i class="fas fa-shopping-bag"></i>
                                     <span class="cart-count">0</span>
                                 </a>
                             </li>
-                            <li><a id="admin-access-link">Admin</a></li>
+                            <li><a id="admin-access-link" data-key="nav.admin">Admin</a></li>
                         </ul>
                     </nav>
                     <div class="language-selector">
-                        <span>Language:</span>
+                        <span data-key="language">Language:</span>
                         <select id="language-selector">
                             <option value="en">English</option>
                             <option value="ar">العربية</option>
@@ -1915,9 +2032,9 @@
                     <img src="https://images.unsplash.com/photo-1605784407953-8fe7c72dab4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Charging Cable">
                 </div>
                 <div class="hero-content">
-                    <h1 class="hero-title">Premium Mobile Accessories</h1>
-                    <p class="hero-subtitle">Discover TECHIZO's high-quality screen protectors, cases, OTG cables, and more to keep your devices safe and functional. Experience the perfect blend of protection and style.</p>
-                    <a class="btn shop-now-btn" data-page="products">Shop Now</a>
+                    <h1 class="hero-title" data-key="hero.title">Premium Mobile Accessories</h1>
+                    <p class="hero-subtitle" data-key="hero.subtitle">Discover TECHIZO's high-quality screen protectors, cases, OTG cables, and more to keep your devices safe and functional. Experience the perfect blend of protection and style.</p>
+                    <a class="btn shop-now-btn" data-page="products" data-key="hero.button">Shop Now</a>
                 </div>
             </div>
 
@@ -1949,10 +2066,10 @@
                         </div>
                     </div>
                     <div class="robot-info">
-                        <h2>Meet TECHIZO Bot</h2>
-                        <p>Our friendly robot assistant is here to guide you through TECHIZO's premium collection of mobile accessories. From cutting-edge screen protectors to stylish phone cases, TECHIZO Bot ensures you find the perfect match for your device.</p>
-                        <p>With advanced technology and a passion for protection, TECHIZO Bot represents our commitment to quality and innovation in every product we offer.</p>
-                        <a class="btn btn-gold explore-products-btn" data-page="products">Explore Products</a>
+                        <h2 data-key="robot.title">Meet TECHIZO Bot</h2>
+                        <p data-key="robot.text1">Our friendly robot assistant is here to guide you through TECHIZO's premium collection of mobile accessories. From cutting-edge screen protectors to stylish phone cases, TECHIZO Bot ensures you find the perfect match for your device.</p>
+                        <p data-key="robot.text2">With advanced technology and a passion for protection, TECHIZO Bot represents our commitment to quality and innovation in every product we offer.</p>
+                        <a class="btn btn-gold explore-products-btn" data-page="products" data-key="robot.button">Explore Products</a>
                     </div>
                 </div>
             </section>
@@ -1961,15 +2078,15 @@
             <section class="slider-section">
                 <div class="container">
                     <div class="section-title">
-                        <h2>Featured Collections</h2>
+                        <h2 data-key="slider.title">Featured Collections</h2>
                     </div>
                 </div>
                 <div class="slider-container">
                     <div class="slider" id="product-slider">
                         <div class="slide">
                             <div class="slide-content">
-                                <h2>Ultimate Screen Protection</h2>
-                                <p>Our premium tempered glass screen protectors offer 9H hardness and oleophobic coating to resist fingerprints and scratches. Designed for maximum clarity and touch sensitivity.</p>
+                                <h2 data-key="slider.slide1.title">Ultimate Screen Protection</h2>
+                                <p data-key="slider.slide1.text">Our premium tempered glass screen protectors offer 9H hardness and oleophobic coating to resist fingerprints and scratches. Designed for maximum clarity and touch sensitivity.</p>
                             </div>
                             <div class="slide-image">
                                 <img src="https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Screen Protectors">
@@ -1977,8 +2094,8 @@
                         </div>
                         <div class="slide">
                             <div class="slide-content">
-                                <h2>Stylish Phone Cases</h2>
-                                <p>Protect your device in style with our collection of premium phone cases. From slim silicone to rugged armor cases, we have options for every lifestyle and preference.</p>
+                                <h2 data-key="slider.slide2.title">Stylish Phone Cases</h2>
+                                <p data-key="slider.slide2.text">Protect your device in style with our collection of premium phone cases. From slim silicone to rugged armor cases, we have options for every lifestyle and preference.</p>
                             </div>
                             <div class="slide-image">
                                 <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Phone Cases">
@@ -1986,8 +2103,8 @@
                         </div>
                         <div class="slide">
                             <div class="slide-content">
-                                <h2>Fast Charging Solutions</h2>
-                                <p>Keep your devices powered with our high-speed charging cables and adapters. Featuring durable construction and fast charging capabilities for all your mobile needs.</p>
+                                <h2 data-key="slider.slide3.title">Fast Charging Solutions</h2>
+                                <p data-key="slider.slide3.text">Keep your devices powered with our high-speed charging cables and adapters. Featuring durable construction and fast charging capabilities for all your mobile needs.</p>
                             </div>
                             <div class="slide-image">
                                 <img src="https://images.unsplash.com/photo-1605784407953-8fe7c72dab4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Charging Accessories">
@@ -2008,7 +2125,7 @@
             <section class="products-section">
                 <div class="container">
                     <div class="section-title">
-                        <h2>Featured Products</h2>
+                        <h2 data-key="products.featured">Featured Products</h2>
                     </div>
                     <div class="products-grid" id="featured-products-container">
                         <!-- Featured products will be dynamically added here -->
@@ -2021,7 +2138,7 @@
         <section id="products-page" class="page-section">
             <div class="container">
                 <div class="section-title">
-                    <h2>All Products</h2>
+                    <h2 data-key="products.all">All Products</h2>
                 </div>
                 <div class="products-grid" id="all-products-container">
                     <!-- All products will be dynamically added here -->
@@ -2033,15 +2150,15 @@
         <section id="about-page" class="page-section">
             <div class="container">
                 <div class="section-title">
-                    <h2>About TECHIZO</h2>
+                    <h2 data-key="about.title">About TECHIZO</h2>
                 </div>
                 <div class="about-content">
                     <div class="about-text">
-                        <h3>Our Story</h3>
-                        <p>Founded in 2020, TECHIZO started with a simple mission: to provide high-quality, affordable mobile accessories that genuinely protect your devices. We noticed a gap in the market for products that combined excellent protection with stylish design.</p>
-                        <p>Today, we serve customers across Europe, the Middle East, and Pakistan, with our headquarters based in Faisalabad. Our products are tested rigorously to ensure they meet the highest standards of quality and durability.</p>
-                        <h3>Our Mission</h3>
-                        <p>To become the leading provider of mobile accessories by offering innovative products that enhance device protection while maintaining aesthetic appeal. We believe your mobile accessories should reflect your personal style while providing maximum protection.</p>
+                        <h3 data-key="about.story">Our Story</h3>
+                        <p data-key="about.story.text1">Founded in 2020, TECHIZO started with a simple mission: to provide high-quality, affordable mobile accessories that genuinely protect your devices. We noticed a gap in the market for products that combined excellent protection with stylish design.</p>
+                        <p data-key="about.story.text2">Today, we serve customers across Europe, the Middle East, and Pakistan, with our headquarters based in Faisalabad. Our products are tested rigorously to ensure they meet the highest standards of quality and durability.</p>
+                        <h3 data-key="about.mission">Our Mission</h3>
+                        <p data-key="about.mission.text">To become the leading provider of mobile accessories by offering innovative products that enhance device protection while maintaining aesthetic appeal. We believe your mobile accessories should reflect your personal style while providing maximum protection.</p>
                     </div>
                 </div>
             </div>
@@ -2052,8 +2169,8 @@
             <div class="contact-page">
                 <div class="container">
                     <div class="section-title">
-                        <h2>Contact Us</h2>
-                        <p style="text-align: center; color: var(--text-secondary); max-width: 600px; margin: 0 auto; margin-top: 20px;">
+                        <h2 data-key="contact.title">Contact Us</h2>
+                        <p style="text-align: center; color: var(--text-secondary); max-width: 600px; margin: 0 auto; margin-top: 20px;" data-key="contact.subtitle">
                             Have questions about our products or need assistance? We're here to help! 
                             Reach out to our friendly support team.
                         </p>
@@ -2062,14 +2179,14 @@
                 
                 <div class="contact-container">
                     <div class="contact-info">
-                        <h3>Get In Touch</h3>
+                        <h3 data-key="contact.getintouch">Get In Touch</h3>
                         <div class="contact-details">
                             <div class="contact-item">
                                 <div class="contact-icon">
                                     <i class="fas fa-map-marker-alt"></i>
                                 </div>
                                 <div class="contact-text">
-                                    <h4>Our Location</h4>
+                                    <h4 data-key="contact.location">Our Location</h4>
                                     <p>Faisalabad, Punjab, Pakistan</p>
                                 </div>
                             </div>
@@ -2079,7 +2196,7 @@
                                     <i class="fas fa-phone-alt"></i>
                                 </div>
                                 <div class="contact-text">
-                                    <h4>Phone Numbers</h4>
+                                    <h4 data-key="contact.phone">Phone Numbers</h4>
                                     <p>+92 3481869972<br>+92 3197247048</p>
                                 </div>
                             </div>
@@ -2089,7 +2206,7 @@
                                     <i class="fas fa-envelope"></i>
                                 </div>
                                 <div class="contact-text">
-                                    <h4>Email Address</h4>
+                                    <h4 data-key="contact.email">Email Address</h4>
                                     <p>healixcare786@gmail.com</p>
                                 </div>
                             </div>
@@ -2099,14 +2216,14 @@
                                     <i class="fas fa-clock"></i>
                                 </div>
                                 <div class="contact-text">
-                                    <h4>Business Hours</h4>
-                                    <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                    <h4 data-key="contact.hours">Business Hours</h4>
+                                    <p data-key="contact.hours.text">Monday - Friday: 9:00 AM - 6:00 PM</p>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="social-section">
-                            <h4>Follow Us</h4>
+                            <h4 data-key="contact.follow">Follow Us</h4>
                             <div class="social-links-contact">
                                 <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
                                 <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
@@ -2123,41 +2240,41 @@
                     </div>
                     
                     <div class="contact-form">
-                        <h3>Send us a Message</h3>
+                        <h3 data-key="contact.message">Send us a Message</h3>
                         <form id="contact-form">
                             <div class="form-group">
-                                <label for="contact-name">Your Name</label>
+                                <label for="contact-name" data-key="contact.form.name">Your Name</label>
                                 <input type="text" id="contact-name" class="form-control" placeholder="Enter your full name" required>
                             </div>
                             
                             <div class="form-group">
-                                <label for="contact-email">Your Email</label>
+                                <label for="contact-email" data-key="contact.form.email">Your Email</label>
                                 <input type="email" id="contact-email" class="form-control" placeholder="Enter your email address" required>
                             </div>
                             
                             <div class="form-group">
-                                <label for="contact-phone">Phone Number</label>
+                                <label for="contact-phone" data-key="contact.form.phone">Phone Number</label>
                                 <input type="tel" id="contact-phone" class="form-control" placeholder="Enter your phone number">
                             </div>
                             
                             <div class="form-group">
-                                <label for="contact-subject">Subject</label>
+                                <label for="contact-subject" data-key="contact.form.subject">Subject</label>
                                 <select id="contact-subject" class="form-control" required>
-                                    <option value="" disabled selected>Select a subject</option>
-                                    <option value="general">General Inquiry</option>
-                                    <option value="product">Product Information</option>
-                                    <option value="order">Order Support</option>
-                                    <option value="warranty">Warranty Claim</option>
-                                    <option value="other">Other</option>
+                                    <option value="" disabled selected data-key="contact.form.subject.select">Select a subject</option>
+                                    <option value="general" data-key="contact.form.subject.general">General Inquiry</option>
+                                    <option value="product" data-key="contact.form.subject.product">Product Information</option>
+                                    <option value="order" data-key="contact.form.subject.order">Order Support</option>
+                                    <option value="warranty" data-key="contact.form.subject.warranty">Warranty Claim</option>
+                                    <option value="other" data-key="contact.form.subject.other">Other</option>
                                 </select>
                             </div>
                             
                             <div class="form-group">
-                                <label for="contact-message">Message</label>
+                                <label for="contact-message" data-key="contact.form.message">Message</label>
                                 <textarea id="contact-message" class="form-control" placeholder="Tell us how we can help you..." required></textarea>
                             </div>
                             
-                            <button type="submit" class="submit-btn">Send Message</button>
+                            <button type="submit" class="submit-btn" data-key="contact.form.submit">Send Message</button>
                         </form>
                     </div>
                 </div>
@@ -2168,15 +2285,15 @@
         <section id="cart-page" class="page-section">
             <div class="container">
                 <div class="section-title">
-                    <h2>Shopping Cart</h2>
+                    <h2 data-key="cart.title">Shopping Cart</h2>
                 </div>
                 <div class="cart-container">
                     <div class="cart-items" id="cart-items-container">
                         <div class="empty-cart" id="empty-cart-message" style="text-align: center; padding: 40px;">
                             <i class="fas fa-shopping-bag" style="font-size: 48px; color: rgba(212, 175, 55, 0.3); margin-bottom: 20px;"></i>
-                            <h3>Your cart is empty</h3>
-                            <p>Add some products to your cart</p>
-                            <a class="btn" data-page="products" style="margin-top: 20px;">Continue Shopping</a>
+                            <h3 data-key="cart.empty">Your cart is empty</h3>
+                            <p data-key="cart.empty.text">Add some products to your cart</p>
+                            <a class="btn" data-page="products" style="margin-top: 20px;" data-key="cart.continue">Continue Shopping</a>
                         </div>
                     </div>
                 </div>
@@ -2186,14 +2303,14 @@
         <!-- Cart Notification -->
         <div class="cart-notification" id="cart-notification">
             <i class="fas fa-check-circle"></i>
-            <span>Product added to cart!</span>
+            <span data-key="cart.notification">Product added to cart!</span>
         </div>
 
         <!-- WhatsApp Help - Fixed on all pages -->
         <div class="whatsapp-help">
             <a href="https://wa.me/923481869972?text=Hi%20TECHIZO,%20I%20need%20help%20with%20my%20order" class="whatsapp-btn" target="_blank">
                 <i class="fab fa-whatsapp"></i>
-                <span>Need Help?</span>
+                <span data-key="whatsapp.help">Need Help?</span>
             </a>
         </div>
 
@@ -2202,8 +2319,8 @@
             <div class="container">
                 <div class="footer-content">
                     <div class="footer-column">
-                        <h3>About TECHIZO</h3>
-                        <p>We provide premium quality mobile accessories to protect and enhance your devices. Our products are designed with care and precision.</p>
+                        <h3 data-key="footer.about">About TECHIZO</h3>
+                        <p data-key="footer.about.text">We provide premium quality mobile accessories to protect and enhance your devices. Our products are designed with care and precision.</p>
                         <div class="social-links">
                             <a href="#"><i class="fab fa-facebook-f"></i></a>
                             <a href="#"><i class="fab fa-instagram"></i></a>
@@ -2211,16 +2328,16 @@
                         </div>
                     </div>
                     <div class="footer-column">
-                        <h3>Quick Links</h3>
+                        <h3 data-key="footer.links">Quick Links</h3>
                         <ul>
-                            <li><a data-page="home">Home</a></li>
-                            <li><a data-page="products">Products</a></li>
-                            <li><a data-page="about">About Us</a></li>
-                            <li><a data-page="contact">Contact</a></li>
+                            <li><a data-page="home" data-key="nav.home">Home</a></li>
+                            <li><a data-page="products" data-key="nav.products">Products</a></li>
+                            <li><a data-page="about" data-key="nav.about">About Us</a></li>
+                            <li><a data-page="contact" data-key="nav.contact">Contact</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
-                        <h3>Contact Information</h3>
+                        <h3 data-key="footer.contact">Contact Information</h3>
                         <ul>
                             <li><i class="fas fa-map-marker-alt"></i> Faisalabad, Punjab, Pakistan</li>
                             <li><i class="fas fa-phone"></i> +92 3481869972</li>
@@ -2473,6 +2590,181 @@
     </div>
 
     <script>
+        // Translation data
+        const translations = {
+            en: {
+                // Navigation
+                "nav.home": "Home",
+                "nav.products": "Products",
+                "nav.about": "About",
+                "nav.contact": "Contact",
+                "nav.admin": "Admin",
+                "language": "Language:",
+                
+                // Hero section
+                "hero.title": "Premium Mobile Accessories",
+                "hero.subtitle": "Discover TECHIZO's high-quality screen protectors, cases, OTG cables, and more to keep your devices safe and functional. Experience the perfect blend of protection and style.",
+                "hero.button": "Shop Now",
+                
+                // Robot section
+                "robot.title": "Meet TECHIZO Bot",
+                "robot.text1": "Our friendly robot assistant is here to guide you through TECHIZO's premium collection of mobile accessories. From cutting-edge screen protectors to stylish phone cases, TECHIZO Bot ensures you find the perfect match for your device.",
+                "robot.text2": "With advanced technology and a passion for protection, TECHIZO Bot represents our commitment to quality and innovation in every product we offer.",
+                "robot.button": "Explore Products",
+                
+                // Slider section
+                "slider.title": "Featured Collections",
+                "slider.slide1.title": "Ultimate Screen Protection",
+                "slider.slide1.text": "Our premium tempered glass screen protectors offer 9H hardness and oleophobic coating to resist fingerprints and scratches. Designed for maximum clarity and touch sensitivity.",
+                "slider.slide2.title": "Stylish Phone Cases",
+                "slider.slide2.text": "Protect your device in style with our collection of premium phone cases. From slim silicone to rugged armor cases, we have options for every lifestyle and preference.",
+                "slider.slide3.title": "Fast Charging Solutions",
+                "slider.slide3.text": "Keep your devices powered with our high-speed charging cables and adapters. Featuring durable construction and fast charging capabilities for all your mobile needs.",
+                
+                // Products section
+                "products.featured": "Featured Products",
+                "products.all": "All Products",
+                
+                // About section
+                "about.title": "About TECHIZO",
+                "about.story": "Our Story",
+                "about.story.text1": "Founded in 2020, TECHIZO started with a simple mission: to provide high-quality, affordable mobile accessories that genuinely protect your devices. We noticed a gap in the market for products that combined excellent protection with stylish design.",
+                "about.story.text2": "Today, we serve customers across Europe, the Middle East, and Pakistan, with our headquarters based in Faisalabad. Our products are tested rigorously to ensure they meet the highest standards of quality and durability.",
+                "about.mission": "Our Mission",
+                "about.mission.text": "To become the leading provider of mobile accessories by offering innovative products that enhance device protection while maintaining aesthetic appeal. We believe your mobile accessories should reflect your personal style while providing maximum protection.",
+                
+                // Contact section
+                "contact.title": "Contact Us",
+                "contact.subtitle": "Have questions about our products or need assistance? We're here to help! Reach out to our friendly support team.",
+                "contact.getintouch": "Get In Touch",
+                "contact.location": "Our Location",
+                "contact.phone": "Phone Numbers",
+                "contact.email": "Email Address",
+                "contact.hours": "Business Hours",
+                "contact.hours.text": "Monday - Friday: 9:00 AM - 6:00 PM",
+                "contact.follow": "Follow Us",
+                "contact.message": "Send us a Message",
+                "contact.form.name": "Your Name",
+                "contact.form.email": "Your Email",
+                "contact.form.phone": "Phone Number",
+                "contact.form.subject": "Subject",
+                "contact.form.subject.select": "Select a subject",
+                "contact.form.subject.general": "General Inquiry",
+                "contact.form.subject.product": "Product Information",
+                "contact.form.subject.order": "Order Support",
+                "contact.form.subject.warranty": "Warranty Claim",
+                "contact.form.subject.other": "Other",
+                "contact.form.message": "Message",
+                "contact.form.submit": "Send Message",
+                
+                // Cart section
+                "cart.title": "Shopping Cart",
+                "cart.empty": "Your cart is empty",
+                "cart.empty.text": "Add some products to your cart",
+                "cart.continue": "Continue Shopping",
+                "cart.notification": "Product added to cart!",
+                
+                // WhatsApp
+                "whatsapp.help": "Need Help?",
+                
+                // Footer
+                "footer.about": "About TECHIZO",
+                "footer.about.text": "We provide premium quality mobile accessories to protect and enhance your devices. Our products are designed with care and precision.",
+                "footer.links": "Quick Links",
+                "footer.contact": "Contact Information",
+                
+                // Logo
+                "logo": "TECHIZO"
+            },
+            ar: {
+                // Navigation
+                "nav.home": "الرئيسية",
+                "nav.products": "المنتجات",
+                "nav.about": "من نحن",
+                "nav.contact": "اتصل بنا",
+                "nav.admin": "المشرف",
+                "language": "اللغة:",
+                
+                // Hero section
+                "hero.title": "إكسسوارات الجوال الممتازة",
+                "hero.subtitle": "اكتشف واقيات الشاشة عالية الجودة من TECHIZO، والهواتف، وكابلات OTG، والمزيد للحفاظ على أجهزتك آمنة ووظيفية. جرب المزيج المثالي من الحماية والأناقة.",
+                "hero.button": "تسوق الآن",
+                
+                // Robot section
+                "robot.title": "تعرف على روبوت TECHIZO",
+                "robot.text1": "مساعد الروبوت الودود لدينا هنا لإرشادك خلال مجموعة TECHIZO المميزة من إكسسوارات الجوال. من واقيات الشاشة المتطورة إلى هواتف أنيقة، يضمن لك روبوت TECHIZO العثور على المطابقة المثالية لجهازك.",
+                "robot.text2": "مع التكنولوجيا المتقدمة وشغف الحماية، يمثل روبوت TECHIZO التزامنا بالجودة والابتكار في كل منتج نقدمه.",
+                "robot.button": "استكشف المنتجات",
+                
+                // Slider section
+                "slider.title": "المجموعات المميزة",
+                "slider.slide1.title": "حماية الشاشة المثالية",
+                "slider.slide1.text": "توفر واقيات الشاشة الزجاجية الممتازة لدينا صلابة 9H وطلاء أوليوفوبي لمقاومة البصمات والخدوش. مصممة لأقصى درجات الوضوح وحساسية اللمس.",
+                "slider.slide2.title": "هواتف أنيقة",
+                "slider.slide2.text": "احمي جهازك بأناقة مع مجموعتنا من هواتف الجوال المميزة. من السيليكون النحيف إلى هواتف الدروع القوية، لدينا خيارات لكل نمط حياة وتفضيل.",
+                "slider.slide3.title": "حلول الشحن السريع",
+                "slider.slide3.text": "احتفظ بأجهزتك مشحونة مع كابلات الشحن والمحولات عالية السرعة لدينا. تتميز ببناء متين وقدرات شحن سريعة لجميع احتياجاتك المحمولة.",
+                
+                // Products section
+                "products.featured": "المنتجات المميزة",
+                "products.all": "جميع المنتجات",
+                
+                // About section
+                "about.title": "عن TECHIZO",
+                "about.story": "قصتنا",
+                "about.story.text1": "تأسست TECHIZO في عام 2020 بمهمة بسيطة: توفير إكسسوارات جوال عالية الجودة وبأسعار معقولة تحمي أجهزتك حقًا. لاحظنا فجوة في السوق للمنتجات التي تجمع بين الحماية الممتازة والتصميم الأنيق.",
+                "about.story.text2": "اليوم، نخدم العملاء في جميع أنحاء أوروبا والشرق الأوسط وباكستان، مع مقرنا الرئيسي في فيصل آباد. يتم اختبار منتجاتنا بدقة لضمان تلبية أعلى معايير الجودة والمتانة.",
+                "about.mission": "مهمتنا",
+                "about.mission.text": "أن نصبح المزود الرائد لإكسسوارات الجوال من خلال تقديم منتجات مبتكرة تعزز حماية الجهاز مع الحفاظ على الجاذبية الجمالية. نعتقد أن إكسسوارات الجوال الخاصة بك يجب أن تعكس أسلوبك الشخصي مع توفير أقصى حماية.",
+                
+                // Contact section
+                "contact.title": "اتصل بنا",
+                "contact.subtitle": "هل لديك أسئلة حول منتجاتنا أو تحتاج إلى مساعدة؟ نحن هنا لمساعدتك! تواصل مع فريق الدعم الودود لدينا.",
+                "contact.getintouch": "ابقى على تواصل",
+                "contact.location": "موقعنا",
+                "contact.phone": "أرقام الهاتف",
+                "contact.email": "عنوان البريد الإلكتروني",
+                "contact.hours": "ساعات العمل",
+                "contact.hours.text": "الإثنين - الجمعة: 9:00 صباحًا - 6:00 مساءً",
+                "contact.follow": "تابعنا",
+                "contact.message": "أرسل لنا رسالة",
+                "contact.form.name": "اسمك",
+                "contact.form.email": "بريدك الإلكتروني",
+                "contact.form.phone": "رقم الهاتف",
+                "contact.form.subject": "الموضوع",
+                "contact.form.subject.select": "اختر موضوعًا",
+                "contact.form.subject.general": "استفسار عام",
+                "contact.form.subject.product": "معلومات المنتج",
+                "contact.form.subject.order": "دعم الطلب",
+                "contact.form.subject.warranty": "مطالبة الضمان",
+                "contact.form.subject.other": "آخر",
+                "contact.form.message": "الرسالة",
+                "contact.form.submit": "إرسال الرسالة",
+                
+                // Cart section
+                "cart.title": "سلة التسوق",
+                "cart.empty": "سلة التسوق الخاصة بك فارغة",
+                "cart.empty.text": "أضف بعض المنتجات إلى سلة التسوق الخاصة بك",
+                "cart.continue": "مواصلة التسوق",
+                "cart.notification": "تمت إضافة المنتج إلى سلة التسوق!",
+                
+                // WhatsApp
+                "whatsapp.help": "تحتاج مساعدة؟",
+                
+                // Footer
+                "footer.about": "عن TECHIZO",
+                "footer.about.text": "نوفر إكسسوارات جوال عالية الجودة لحماية وتحسين أجهزتك. تم تصميم منتجاتنا بعناية ودقة.",
+                "footer.links": "روابط سريعة",
+                "footer.contact": "معلومات الاتصال",
+                
+                // Logo
+                "logo": "TECHIZO"
+            }
+        };
+
+        // Current language
+        let currentLanguage = 'en';
+
         // Sample products data
         var products = [
             {
@@ -2558,6 +2850,7 @@
         var whatsappBtn = document.querySelector('.whatsapp-btn');
         var adminAccessLink = document.getElementById('admin-access-link');
         var cartNotification = document.getElementById('cart-notification');
+        var languageSelector = document.getElementById('language-selector');
 
         // Admin Portal Elements
         var mainWebsite = document.getElementById('main-website');
@@ -2639,7 +2932,7 @@
             // Set up contact form
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert('Thank you for your message! We will get back to you soon.');
+                alert(currentLanguage === 'en' ? 'Thank you for your message! We will get back to you soon.' : 'شكرًا لك على رسالتك! سوف نعود إليك قريبًا.');
                 contactForm.reset();
             });
             
@@ -2654,7 +2947,54 @@
             
             // Set up admin portal
             setupAdminPortal();
+            
+            // Set up language selector
+            languageSelector.addEventListener('change', function() {
+                changeLanguage(this.value);
+            });
+            
+            // Load saved language from localStorage
+            const savedLanguage = localStorage.getItem('techizo_language');
+            if (savedLanguage) {
+                languageSelector.value = savedLanguage;
+                changeLanguage(savedLanguage);
+            }
         });
+
+        // Change language function
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = lang;
+            
+            // Update all elements with data-key
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Update select options
+            const subjectSelect = document.getElementById('contact-subject');
+            if (subjectSelect) {
+                const options = subjectSelect.querySelectorAll('option');
+                options.forEach(option => {
+                    const key = option.getAttribute('data-key');
+                    if (translations[lang] && translations[lang][key]) {
+                        option.textContent = translations[lang][key];
+                    }
+                });
+            }
+            
+            // Save language preference
+            localStorage.setItem('techizo_language', lang);
+        }
 
         // Set up admin portal
         function setupAdminPortal() {
@@ -2831,7 +3171,7 @@
         function saveProduct() {
             // Validation
             if (!productName.value || !productCategory.value || !productPrice.value) {
-                alert('Please fill in all required fields');
+                alert(currentLanguage === 'en' ? 'Please fill in all required fields' : 'يرجى ملء جميع الحقول المطلوبة');
                 return;
             }
             
@@ -2926,8 +3266,8 @@
                 }
                 
                 // Update form title and buttons
-                productFormTitle.textContent = 'Edit Product';
-                saveProductBtn.textContent = 'Update Product';
+                productFormTitle.textContent = currentLanguage === 'en' ? 'Edit Product' : 'تحرير المنتج';
+                saveProductBtn.textContent = currentLanguage === 'en' ? 'Update Product' : 'تحديث المنتج';
                 cancelEditBtn.style.display = 'inline-block';
                 
                 // Set editing mode
@@ -2940,7 +3280,7 @@
         
         // Delete product
         function deleteProduct(id) {
-            if (confirm('Are you sure you want to delete this product?')) {
+            if (confirm(currentLanguage === 'en' ? 'Are you sure you want to delete this product?' : 'هل أنت متأكد أنك تريد حذف هذا المنتج؟')) {
                 products = products.filter(p => p.id !== id);
                 localStorage.setItem('techizo_products', JSON.stringify(products));
                 renderProductsTable();
@@ -2967,8 +3307,8 @@
             productImage.value = '';
             imagePreview.innerHTML = '';
             
-            productFormTitle.textContent = 'Add New Product';
-            saveProductBtn.textContent = 'Save Product';
+            productFormTitle.textContent = currentLanguage === 'en' ? 'Add New Product' : 'إضافة منتج جديد';
+            saveProductBtn.textContent = currentLanguage === 'en' ? 'Save Product' : 'حفظ المنتج';
             cancelEditBtn.style.display = 'none';
             
             editingProductId = null;
@@ -2993,8 +3333,8 @@
                     <td>$${product.price.toFixed(2)}</td>
                     <td>${product.discount}%</td>
                     <td class="action-buttons">
-                        <button class="action-btn btn-gold" onclick="editProduct(${product.id})">Edit</button>
-                        <button class="action-btn btn-danger" onclick="deleteProduct(${product.id})">Delete</button>
+                        <button class="action-btn btn-gold" onclick="editProduct(${product.id})">${currentLanguage === 'en' ? 'Edit' : 'تحرير'}</button>
+                        <button class="action-btn btn-danger" onclick="deleteProduct(${product.id})">${currentLanguage === 'en' ? 'Delete' : 'حذف'}</button>
                     </td>
                 `;
                 
@@ -3029,8 +3369,8 @@
                     <td>$${order.total.toFixed(2)}</td>
                     <td>${order.status}</td>
                     <td class="action-buttons">
-                        <button class="action-btn btn-success" onclick="updateOrderStatus(${order.id}, 'completed')">Complete</button>
-                        <button class="action-btn btn-danger" onclick="updateOrderStatus(${order.id}, 'cancelled')">Cancel</button>
+                        <button class="action-btn btn-success" onclick="updateOrderStatus(${order.id}, 'completed')">${currentLanguage === 'en' ? 'Complete' : 'إكمال'}</button>
+                        <button class="action-btn btn-danger" onclick="updateOrderStatus(${order.id}, 'cancelled')">${currentLanguage === 'en' ? 'Cancel' : 'إلغاء'}</button>
                     </td>
                 `;
                 
@@ -3083,7 +3423,7 @@
             settings.minOrderDiscount = parseFloat(minOrderDiscount.value) || 0;
             
             localStorage.setItem('techizo_settings', JSON.stringify(settings));
-            alert('Discount settings saved successfully!');
+            alert(currentLanguage === 'en' ? 'Discount settings saved successfully!' : 'تم حفظ إعدادات الخصم بنجاح!');
         }
         
         // Save delivery settings
@@ -3092,7 +3432,7 @@
             settings.freeDeliveryThreshold = parseFloat(freeDeliveryThreshold.value) || 0;
             
             localStorage.setItem('techizo_settings', JSON.stringify(settings));
-            alert('Delivery settings saved successfully!');
+            alert(currentLanguage === 'en' ? 'Delivery settings saved successfully!' : 'تم حفظ إعدادات التوصيل بنجاح!');
         }
         
         // Update dashboard statistics
@@ -3137,22 +3477,22 @@
                 
                 modal.innerHTML = `
                     <div style="background: rgba(30,30,30,0.95); padding: 30px; border-radius: 15px; text-align: center; max-width: 400px; width: 90%; border: 1px solid rgba(212,175,55,0.3);">
-                        <h3 style="margin-bottom: 20px; color: var(--accent);">Contact TECHIZO Support</h3>
-                        <p style="margin-bottom: 25px; color: var(--text-secondary);">Choose a WhatsApp number to contact our support team:</p>
+                        <h3 style="margin-bottom: 20px; color: var(--accent);">${currentLanguage === 'en' ? 'Contact TECHIZO Support' : 'اتصل بدعم TECHIZO'}</h3>
+                        <p style="margin-bottom: 25px; color: var(--text-secondary);">${currentLanguage === 'en' ? 'Choose a WhatsApp number to contact our support team:' : 'اختر رقم واتساب للتواصل مع فريق الدعم لدينا:'}</p>
                         <div style="display: flex; flex-direction: column; gap: 15px;">
                             <a href="https://wa.me/923481869972?text=Hi%20TECHIZO,%20I%20need%20help%20with%20my%20order" 
                                class="btn" 
                                target="_blank" 
                                style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
-                                Contact +92 3481869972
+                                ${currentLanguage === 'en' ? 'Contact +92 3481869972' : 'اتصل بـ +92 3481869972'}
                             </a>
                             <a href="https://wa.me/923197247048?text=Hi%20TECHIZO,%20I%20need%20help%20with%20my%20order" 
                                class="btn" 
                                target="_blank" 
                                style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);">
-                                Contact +92 3197247048
+                                ${currentLanguage === 'en' ? 'Contact +92 3197247048' : 'اتصل بـ +92 3197247048'}
                             </a>
-                            <button class="btn" onclick="this.parentElement.parentElement.parentElement.remove()" style="background: rgba(255,255,255,0.1);">Cancel</button>
+                            <button class="btn" onclick="this.parentElement.parentElement.parentElement.remove()" style="background: rgba(255,255,255,0.1);">${currentLanguage === 'en' ? 'Cancel' : 'إلغاء'}</button>
                         </div>
                     </div>
                 `;
@@ -3326,7 +3666,7 @@
                     priceHtml +
                     '<button class="add-to-cart-btn" data-id="' + product.id + '">' +
                         '<i class="fas fa-shopping-cart"></i>' +
-                        '<span class="btn-text">Add to Cart</span>' +
+                        '<span class="btn-text">' + (currentLanguage === 'en' ? 'Add to Cart' : 'أضف إلى السلة') + '</span>' +
                     '</button>' +
                 '</div>';
             
@@ -3428,7 +3768,7 @@
                                 '<button class="quantity-btn increase-btn" data-id="' + item.id + '">+</button>' +
                             '</div>' +
                             '<span class="price">$' + (itemPrice * item.quantity).toFixed(2) + '</span>' +
-                            '<button class="btn btn-danger remove-btn" data-id="' + item.id + '">Remove</button>' +
+                            '<button class="btn btn-danger remove-btn" data-id="' + item.id + '">' + (currentLanguage === 'en' ? 'Remove' : 'إزالة') + '</button>' +
                         '</div>' +
                     '</div>';
                 cartItemsContainer.appendChild(cartItem);
