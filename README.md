@@ -438,69 +438,6 @@
             will-change: transform;
         }
         
-        .floating-product {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-        
-        .floating-product img {
-            max-width: 80%;
-            max-height: 80%;
-            object-fit: contain;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
-        }
-        
-        .floating-product:nth-child(1) {
-            top: 15%;
-            left: 10%;
-            animation: floatProduct 15s ease-in-out infinite;
-        }
-        
-        .floating-product:nth-child(2) {
-            top: 60%;
-            left: 75%;
-            animation: floatProduct 18s ease-in-out infinite reverse;
-        }
-        
-        .floating-product:nth-child(3) {
-            top: 75%;
-            left: 15%;
-            animation: floatProduct 20s ease-in-out infinite 2s;
-        }
-        
-        .floating-product:nth-child(4) {
-            top: 25%;
-            left: 70%;
-            animation: floatProduct 16s ease-in-out infinite 1s;
-        }
-        
-        @keyframes floatProduct {
-            0%, 100% {
-                transform: translateY(0px) rotateX(0deg) rotateY(0deg);
-            }
-            25% {
-                transform: translateY(-20px) rotateX(5deg) rotateY(5deg);
-            }
-            50% {
-                transform: translateY(-10px) rotateX(-5deg) rotateY(-5deg);
-            }
-            75% {
-                transform: translateY(-15px) rotateX(3deg) rotateY(-3deg);
-            }
-        }
-        
         .hero-content {
             text-align: center;
             z-index: 10;
@@ -2119,18 +2056,6 @@
             <!-- Enhanced Hero Animation -->
             <div class="hero-animation">
                 <div class="parallax-bg" id="parallax-bg"></div>
-                <div class="floating-product">
-                    <img src="[https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Screen Protector](https://shopinplanet.com/wp-content/uploads/2025/09/17promax-polo-jeremy-series-silver.png)">
-                </div>
-                <div class="floating-product">
-                    <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Phone Case">
-                </div>
-                <div class="floating-product">
-                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=684&q=80" alt="USB Adapter">
-                </div>
-                <div class="floating-product">
-                    <img src="https://images.unsplash.com/photo-1605784407953-8fe7c72dab4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Charging Cable">
-                </div>
                 <div class="hero-content">
                     <h1 class="hero-title" data-key="hero.title">Premium Mobile Accessories</h1>
                     <p class="hero-subtitle" data-key="hero.subtitle">Discover TECHIZO's high-quality screen protectors, cases, OTG cables, and more to keep your devices safe and functional. Experience the perfect blend of protection and style.</p>
