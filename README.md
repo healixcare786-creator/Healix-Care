@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1367,7 +1366,7 @@
             color: var(--text-secondary);
         }
         
-        /* Cart Styles */
+        /* NEW CART STYLES */
         .cart-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -1441,6 +1440,151 @@
             font-weight: bold;
             width: 30px;
             text-align: center;
+        }
+        
+        .cart-summary {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .summary-total {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        /* NEW CHECKOUT FORM STYLES */
+        .checkout-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .checkout-form {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            background: rgba(10, 10, 10, 0.7);
+            color: var(--text);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        /* NEW PAYMENT METHOD STYLES */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .payment-method {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+        
+        .payment-method:hover {
+            background: rgba(30, 30, 30, 0.9);
+        }
+        
+        .payment-method.selected {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .payment-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        /* NEW THANK YOU PAGE STYLES */
+        .thank-you-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .thank-you-icon {
+            font-size: 80px;
+            color: var(--success);
+            margin-bottom: 30px;
+        }
+        
+        .thank-you-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--accent), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .order-summary {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            text-align: left;
+        }
+        
+        .order-details {
+            margin-bottom: 20px;
+        }
+        
+        .order-details h3 {
+            margin-bottom: 15px;
+            color: var(--accent);
         }
         
         /* WhatsApp Help */
@@ -1984,6 +2128,26 @@
             .action-buttons {
                 flex-direction: column;
             }
+            
+            /* NEW CART RESPONSIVE */
+            .cart-item {
+                flex-direction: column;
+            }
+            
+            .cart-item-image {
+                width: 100%;
+                height: 200px;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 576px) {
@@ -2314,20 +2478,213 @@
             </div>
         </section>
 
-        <!-- Cart Page -->
+        <!-- NEW CART PAGE -->
         <section id="cart-page" class="page-section">
             <div class="container">
-                <div class="section-title">
-                    <h2 data-key="cart.title">Shopping Cart</h2>
-                </div>
+                <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.5rem;">Your Shopping Cart</h2>
                 <div class="cart-container">
                     <div class="cart-items" id="cart-items-container">
                         <div class="empty-cart" id="empty-cart-message" style="text-align: center; padding: 40px;">
                             <i class="fas fa-shopping-bag" style="font-size: 48px; color: rgba(212, 175, 55, 0.3); margin-bottom: 20px;"></i>
-                            <h3 data-key="cart.empty">Your cart is empty</h3>
-                            <p data-key="cart.empty.text">Add some products to your cart</p>
-                            <a class="btn" data-page="products" style="margin-top: 20px;" data-key="cart.continue">Continue Shopping</a>
+                            <h3>Your cart is empty</h3>
+                            <p>Add some products to your cart</p>
+                            <a class="btn" data-page="products" style="margin-top: 20px;">Continue Shopping</a>
                         </div>
+                    </div>
+                    
+                    <div class="cart-summary" id="cart-summary" style="display: none;">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span id="shipping">$5.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax:</span>
+                            <span id="tax">$0.00</span>
+                        </div>
+                        <div class="summary-row summary-total">
+                            <span>Total:</span>
+                            <span id="total">$0.00</span>
+                        </div>
+                        <button class="btn" id="checkout-btn" style="width: 100%; margin-top: 20px;">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW DELIVERY PAGE -->
+        <section id="delivery-page" class="page-section">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.5rem;">Delivery Information</h2>
+                <div class="checkout-container">
+                    <div class="checkout-form">
+                        <form id="delivery-form">
+                            <div class="form-group">
+                                <label for="full-name">Full Name</label>
+                                <input type="text" id="full-name" class="form-control" placeholder="Enter your full name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address">Street Address</label>
+                                <input type="text" id="address" class="form-control" placeholder="Enter your street address" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" id="city" class="form-control" placeholder="Enter your city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="zip">ZIP Code</label>
+                                    <input type="text" id="zip" class="form-control" placeholder="Enter ZIP code" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select id="country" class="form-control" required>
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="PK">Pakistan</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="instructions">Delivery Instructions (Optional)</label>
+                                <textarea id="instructions" class="form-control" placeholder="Any special delivery instructions"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn" style="width: 100%;">Place Order</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW PAYMENT PAGE -->
+        <section id="payment-page" class="page-section">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.5rem;">Payment Method</h2>
+                <div class="checkout-container">
+                    <div class="checkout-form">
+                        <div class="form-group">
+                            <h3 style="margin-bottom: 20px;">Select Payment Method</h3>
+                            <div class="payment-methods">
+                                <div class="payment-method" data-method="credit-card">
+                                    <div class="payment-icon">
+                                        <i class="far fa-credit-card"></i>
+                                    </div>
+                                    <h4>Credit Card</h4>
+                                </div>
+                                <div class="payment-method" data-method="paypal">
+                                    <div class="payment-icon">
+                                        <i class="fab fa-paypal"></i>
+                                    </div>
+                                    <h4>PayPal</h4>
+                                </div>
+                                <div class="payment-method" data-method="apple-pay">
+                                    <div class="payment-icon">
+                                        <i class="fab fa-apple"></i>
+                                    </div>
+                                    <h4>Apple Pay</h4>
+                                </div>
+                                <div class="payment-method" data-method="google-pay">
+                                    <div class="payment-icon">
+                                        <i class="fab fa-google"></i>
+                                    </div>
+                                    <h4>Google Pay</h4>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="credit-card-form" style="display: none;">
+                            <div class="form-group">
+                                <label for="card-number">Card Number</label>
+                                <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiry-date">Expiry Date</label>
+                                    <input type="text" id="expiry-date" class="form-control" placeholder="MM/YY">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" class="form-control" placeholder="123">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="card-name">Name on Card</label>
+                                <input type="text" id="card-name" class="form-control" placeholder="Enter name as on card">
+                            </div>
+                        </div>
+                        
+                        <div id="paypal-info" style="display: none; text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                            <p>You will be redirected to PayPal to complete your payment</p>
+                        </div>
+                        
+                        <div id="apple-pay-info" style="display: none; text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                            <p>You will be redirected to Apple Pay to complete your payment</p>
+                        </div>
+                        
+                        <div id="google-pay-info" style="display: none; text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                            <p>You will be redirected to Google Pay to complete your payment</p>
+                        </div>
+                        
+                        <button class="btn" id="confirm-payment-btn" style="width: 100%; display: none;">Confirm Payment</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW THANK YOU PAGE -->
+        <section id="thank-you-page" class="page-section">
+            <div class="container">
+                <div class="thank-you-container">
+                    <div class="thank-you-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h1 class="thank-you-title">Thank You for Your Order!</h1>
+                    <p style="font-size: 1.2rem; margin-bottom: 30px; color: var(--text-secondary);">Your order has been placed successfully and will be shipped soon.</p>
+                    
+                    <div class="order-summary">
+                        <div class="order-details">
+                            <h3>Order Details</h3>
+                            <p><strong>Order ID:</strong> <span id="order-id">TZ-2023-001</span></p>
+                            <p><strong>Estimated Delivery:</strong> <span id="delivery-date">5-7 business days</span></p>
+                        </div>
+                        
+                        <div class="order-details">
+                            <h3>Shipping Address</h3>
+                            <p id="shipping-address">Loading...</p>
+                        </div>
+                        
+                        <div class="order-details">
+                            <h3>Payment Method</h3>
+                            <p id="payment-method">Loading...</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 40px;">
+                        <a class="btn" data-page="home" style="margin-right: 15px;">Continue Shopping</a>
+                        <a class="btn" id="track-order-btn">Track Your Order</a>
                     </div>
                 </div>
             </div>
@@ -2885,6 +3242,8 @@
 
         // Shopping cart
         var cart = [];
+        let selectedPaymentMethod = null;
+        let deliveryInfo = null;
 
         // DOM elements
         var pageSections = document.querySelectorAll('.page-section');
@@ -2906,6 +3265,16 @@
         var cartNotification = document.getElementById('cart-notification');
         var languageSelector = document.getElementById('language-selector');
         var categoryFilters = document.querySelectorAll('.category-filter');
+
+        // NEW CHECKOUT ELEMENTS
+        const cartSummary = document.getElementById('cart-summary');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const deliveryForm = document.getElementById('delivery-form');
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const confirmPaymentBtn = document.getElementById('confirm-payment-btn');
+        const trackOrderBtn = document.getElementById('track-order-btn');
+        const shippingAddressElement = document.getElementById('shipping-address');
+        const paymentMethodElement = document.getElementById('payment-method');
 
         // Admin Portal Elements
         var mainWebsite = document.getElementById('main-website');
@@ -3031,6 +3400,43 @@
                 languageSelector.value = savedLanguage;
                 changeLanguage(savedLanguage);
             }
+            
+            // NEW CHECKOUT SETUP
+            // Set up checkout button
+            checkoutBtn.addEventListener('click', function() {
+                navigateToPage('delivery');
+            });
+            
+            // Set up delivery form
+            deliveryForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveDeliveryInfo();
+                navigateToPage('payment');
+            });
+            
+            // Set up payment method selection
+            paymentMethods.forEach(function(method) {
+                method.addEventListener('click', function() {
+                    selectPaymentMethod(this.getAttribute('data-method'));
+                });
+            });
+            
+            // Set up confirm payment button
+            confirmPaymentBtn.addEventListener('click', function() {
+                processPayment();
+            });
+            
+            // Set up track order button
+            trackOrderBtn.addEventListener('click', function() {
+                alert('Order tracking will be available once your order ships. You will receive an email with tracking information.');
+            });
+            
+            // Load cart from localStorage if available
+            const savedCart = localStorage.getItem('techizo_cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartUI();
+            }
         });
 
         // Change language function
@@ -3066,6 +3472,258 @@
             
             // Save language preference
             localStorage.setItem('techizo_language', lang);
+        }
+
+        // NEW NAVIGATION FUNCTION
+        // Navigate to a specific page
+        function navigateToPage(page, category = null) {
+            // Hide all pages
+            pageSections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById(page + '-page').classList.add('active');
+            
+            // Update active nav link
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === page) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Update cart page if needed
+            if (page === 'cart') {
+                renderCartItems();
+            }
+            
+            // Filter products by category if specified
+            if (page === 'products' && category) {
+                filterProductsByCategory(category);
+                
+                // Update active filter
+                categoryFilters.forEach(f => {
+                    f.classList.remove('active');
+                    if (f.getAttribute('data-category') === category) {
+                        f.classList.add('active');
+                    }
+                });
+            }
+            
+            // Update thank you page if needed
+            if (page === 'thank-you') {
+                updateThankYouPage();
+            }
+        }
+
+        // NEW CART FUNCTIONS
+        // Render cart items
+        function renderCartItems() {
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.appendChild(emptyCartMessage.cloneNode(true));
+                cartSummary.style.display = 'none';
+                return;
+            }
+            
+            cartSummary.style.display = 'block';
+            
+            let subtotal = 0;
+            
+            cart.forEach(function(item) {
+                const discountedPrice = item.discount > 0 ? item.price * (1 - item.discount/100) : item.price;
+                const itemTotal = discountedPrice * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="cart-item-details">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <div class="price-details">
+                            ${item.discount > 0 ? 
+                                `<span class="original-price">$${item.price.toFixed(2)}</span>
+                                 <span class="discounted-price">$${discountedPrice.toFixed(2)}</span>
+                                 <span class="discount-badge">-${item.discount}%</span>` 
+                                : 
+                                `<span class="price">$${item.price.toFixed(2)}</span>`
+                            }
+                        </div>
+                        <div class="cart-item-controls">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn decrease-btn" data-id="${item.id}">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="quantity-btn increase-btn" data-id="${item.id}">+</button>
+                            </div>
+                            <span class="item-total">
+                                $${itemTotal.toFixed(2)}
+                            </span>
+                            <button class="btn btn-danger remove-btn" data-id="${item.id}">Remove</button>
+                        </div>
+                    </div>
+                `;
+                
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            // Calculate totals
+            const shipping = 5.00;
+            const tax = subtotal * 0.1; // 10% tax
+            const total = subtotal + shipping + tax;
+            
+            // Update summary
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.increase-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    const item = cart.find(function(item) {
+                        return item.id === productId;
+                    });
+                    
+                    if (item) {
+                        item.quantity += 1;
+                        updateCartUI();
+                        renderCartItems();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.decrease-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    const item = cart.find(function(item) {
+                        return item.id === productId;
+                    });
+                    
+                    if (item && item.quantity > 1) {
+                        item.quantity -= 1;
+                        updateCartUI();
+                        renderCartItems();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.remove-btn').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    cart = cart.filter(function(item) {
+                        return item.id !== productId;
+                    });
+                    
+                    updateCartUI();
+                    renderCartItems();
+                });
+            });
+        }
+
+        // NEW CHECKOUT FUNCTIONS
+        // Save delivery information
+        function saveDeliveryInfo() {
+            deliveryInfo = {
+                fullName: document.getElementById('full-name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                zip: document.getElementById('zip').value,
+                country: document.getElementById('country').value,
+                instructions: document.getElementById('instructions').value
+            };
+        }
+
+        // Select payment method
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            
+            // Update UI
+            paymentMethods.forEach(function(m) {
+                m.classList.remove('selected');
+            });
+            
+            document.querySelector(`[data-method="${method}"]`).classList.add('selected');
+            
+            // Show appropriate form
+            document.getElementById('credit-card-form').style.display = 'none';
+            document.getElementById('paypal-info').style.display = 'none';
+            document.getElementById('apple-pay-info').style.display = 'none';
+            document.getElementById('google-pay-info').style.display = 'none';
+            
+            if (method === 'credit-card') {
+                document.getElementById('credit-card-form').style.display = 'block';
+            } else if (method === 'paypal') {
+                document.getElementById('paypal-info').style.display = 'block';
+            } else if (method === 'apple-pay') {
+                document.getElementById('apple-pay-info').style.display = 'block';
+            } else if (method === 'google-pay') {
+                document.getElementById('google-pay-info').style.display = 'block';
+            }
+            
+            // Show confirm payment button
+            confirmPaymentBtn.style.display = 'block';
+        }
+
+        // Process payment
+        function processPayment() {
+            if (!selectedPaymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            // In a real application, you would process the payment here
+            // For this demo, we'll just simulate a successful payment
+            
+            // Clear the cart
+            cart = [];
+            updateCartUI();
+            
+            // Navigate to thank you page
+            navigateToPage('thank-you');
+        }
+
+        // Update thank you page with order details
+        function updateThankYouPage() {
+            if (deliveryInfo) {
+                const address = `${deliveryInfo.address}, ${deliveryInfo.city}, ${deliveryInfo.zip}, ${deliveryInfo.country}`;
+                shippingAddressElement.textContent = address;
+            }
+            
+            if (selectedPaymentMethod) {
+                // Format payment method for display
+                let paymentText = '';
+                switch(selectedPaymentMethod) {
+                    case 'credit-card':
+                        paymentText = 'Credit Card';
+                        break;
+                    case 'paypal':
+                        paymentText = 'PayPal';
+                        break;
+                    case 'apple-pay':
+                        paymentText = 'Apple Pay';
+                        break;
+                    case 'google-pay':
+                        paymentText = 'Google Pay';
+                        break;
+                }
+                
+                paymentMethodElement.textContent = paymentText;
+            }
+            
+            // Generate a random order ID
+            const orderId = 'TZ-' + Date.now().toString().substr(-6);
+            document.getElementById('order-id').textContent = orderId;
         }
 
         // Set up admin portal
@@ -3654,46 +4312,6 @@
             }, 5000);
         }
 
-        // Navigate to a specific page
-        function navigateToPage(page, category = null) {
-            // Hide all pages
-            pageSections.forEach(function(section) {
-                section.classList.remove('active');
-            });
-            
-            // Show the selected page
-            document.getElementById(page + '-page').classList.add('active');
-            
-            // Update active nav link
-            navLinks.forEach(function(link) {
-                link.classList.remove('active');
-                if (link.getAttribute('data-page') === page) {
-                    link.classList.add('active');
-                }
-            });
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-            
-            // Update cart page if needed
-            if (page === 'cart') {
-                renderCartItems();
-            }
-            
-            // Filter products by category if specified
-            if (page === 'products' && category) {
-                filterProductsByCategory(category);
-                
-                // Update active filter
-                categoryFilters.forEach(f => {
-                    f.classList.remove('active');
-                    if (f.getAttribute('data-category') === category) {
-                        f.classList.add('active');
-                    }
-                });
-            }
-        }
-
         // Filter products by category
         function filterProductsByCategory(category) {
             const allProductsContainer = document.getElementById('all-products-container');
@@ -3841,88 +4459,9 @@
                 return total + item.quantity;
             }, 0);
             cartCount.textContent = totalItems;
-        }
-
-        // Render cart items
-        function renderCartItems() {
-            cartItemsContainer.innerHTML = '';
             
-            if (cart.length === 0) {
-                cartItemsContainer.appendChild(emptyCartMessage.cloneNode(true));
-                return;
-            }
-            
-            cart.forEach(function(item) {
-                var itemPrice = item.price;
-                var discountAmount = 0;
-                
-                // Apply product-specific discount
-                if (item.discount > 0) {
-                    discountAmount = item.price * (item.discount / 100);
-                    itemPrice = item.price - discountAmount;
-                }
-                
-                var cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.innerHTML = 
-                    '<div class="cart-item-image">' +
-                        '<img src="' + item.image + '" alt="' + item.name + '">' +
-                    '</div>' +
-                    '<div class="cart-item-details">' +
-                        '<h3>' + item.name + '</h3>' +
-                        '<p>' + item.description + '</p>' +
-                        '<div class="cart-item-controls">' +
-                            '<div class="quantity-controls">' +
-                                '<button class="quantity-btn decrease-btn" data-id="' + item.id + '">-</button>' +
-                                '<span class="quantity">' + item.quantity + '</span>' +
-                                '<button class="quantity-btn increase-btn" data-id="' + item.id + '">+</button>' +
-                            '</div>' +
-                            '<span class="price">$' + (itemPrice * item.quantity).toFixed(2) + '</span>' +
-                            '<button class="btn btn-danger remove-btn" data-id="' + item.id + '">' + (currentLanguage === 'en' ? 'Remove' : 'إزالة') + '</button>' +
-                        '</div>' +
-                    '</div>';
-                cartItemsContainer.appendChild(cartItem);
-            });
-            
-            // Add event listeners to quantity buttons
-            document.querySelectorAll('.increase-btn').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var productId = parseInt(this.getAttribute('data-id'));
-                    var item = cart.find(function(item) {
-                        return item.id === productId;
-                    });
-                    if (item) {
-                        item.quantity += 1;
-                        updateCartUI();
-                        renderCartItems();
-                    }
-                });
-            });
-            
-            document.querySelectorAll('.decrease-btn').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var productId = parseInt(this.getAttribute('data-id'));
-                    var item = cart.find(function(item) {
-                        return item.id === productId;
-                    });
-                    if (item && item.quantity > 1) {
-                        item.quantity -= 1;
-                        updateCartUI();
-                        renderCartItems();
-                    }
-                });
-            });
-            
-            document.querySelectorAll('.remove-btn').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var productId = parseInt(this.getAttribute('data-id'));
-                    cart = cart.filter(function(item) {
-                        return item.id !== productId;
-                    });
-                    updateCartUI();
-                    renderCartItems();
-                });
-            });
+            // Save cart to localStorage
+            localStorage.setItem('techizo_cart', JSON.stringify(cart));
         }
     </script>
 </body>
