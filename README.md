@@ -2120,7 +2120,7 @@
             <div class="hero-animation">
                 <div class="parallax-bg" id="parallax-bg"></div>
                 <div class="floating-product">
-                    <img src="https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Screen Protector">
+                    <img src="[https://images.unsplash.com/photo-1601593346740-925612772716?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80" alt="Screen Protector](https://shopinplanet.com/wp-content/uploads/2025/09/17promax-polo-jeremy-series-silver.png)">
                 </div>
                 <div class="floating-product">
                     <img src="https://images.unsplash.com/photo-1556656793-08538906a9f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Phone Case">
