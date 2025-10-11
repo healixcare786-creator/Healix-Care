@@ -2550,6 +2550,9 @@
         // Current language
         let currentLanguage = 'en';
 
+        // GOOGLE APPS SCRIPT INTEGRATION - ADD THIS CONSTANT
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbz9Aq8j1m923H7nCmFw3HlARa_YyukFwT1NrPsts4di-Ngpjk9LoUMdvYJM5dDx29TB/exec';
+
         // Initialize products from localStorage or use default
         function initializeProducts() {
             const storedProducts = localStorage.getItem('techizo_products');
@@ -2662,6 +2665,31 @@
         // State variables
         let products = initializeProducts();
 
+        // GOOGLE APPS SCRIPT INTEGRATION - ADD THIS FUNCTION
+        function submitToGoogleAppsScript(data) {
+            return fetch(WEB_APP_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            });
+        }
+
+        // GOOGLE APPS SCRIPT INTEGRATION - ADD THIS HELPER FUNCTION
+        function calculateSubtotal() {
+            return cart.reduce((total, item) => {
+                const discountedPrice = item.discount > 0 ? item.price * (1 - item.discount/100) : item.price;
+                return total + (discountedPrice * item.quantity);
+            }, 0);
+        }
+
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             // Load products
@@ -2700,11 +2728,30 @@
                 navigateToPage('products');
             });
             
-            // Set up contact form
+            // GOOGLE APPS SCRIPT INTEGRATION - MODIFIED CONTACT FORM
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert(currentLanguage === 'en' ? 'Thank you for your message! We will get back to you soon.' : 'شكرًا لك على رسالتك! سوف نعود إليك قريبًا.');
-                contactForm.reset();
+                
+                const formData = {
+                    name: document.getElementById('contact-name').value,
+                    email: document.getElementById('contact-email').value,
+                    phone: document.getElementById('contact-phone').value,
+                    subject: document.getElementById('contact-subject').value,
+                    message: document.getElementById('contact-message').value,
+                    type: 'contact',
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Submit to Google Apps Script
+                submitToGoogleAppsScript(formData)
+                    .then(response => {
+                        alert(currentLanguage === 'en' ? 'Thank you for your message! We will get back to you soon.' : 'شكرًا لك على رسالتك! سوف نعود إليك قريبًا.');
+                        contactForm.reset();
+                    })
+                    .catch(error => {
+                        alert(currentLanguage === 'en' ? 'Sorry, there was an error sending your message. Please try again.' : 'عذرًا، حدث خطأ في إرسال رسالتك. يرجى المحاولة مرة أخرى.');
+                        console.error('Error submitting contact form:', error);
+                    });
             });
             
             // Set up WhatsApp buttons to open both numbers
@@ -2748,7 +2795,7 @@
                 });
             });
             
-            // Set up confirm payment button
+            // GOOGLE APPS SCRIPT INTEGRATION - MODIFIED PAYMENT PROCESSING
             confirmPaymentBtn.addEventListener('click', function() {
                 processPayment();
             });
@@ -3002,22 +3049,39 @@
             confirmPaymentBtn.style.display = 'block';
         }
 
-        // Process payment
+        // GOOGLE APPS SCRIPT INTEGRATION - MODIFIED PAYMENT PROCESSING
         function processPayment() {
             if (!selectedPaymentMethod) {
-                alert('Please select a payment method');
+                alert(currentLanguage === 'en' ? 'Please select a payment method' : 'يرجى اختيار طريقة الدفع');
                 return;
             }
             
-            // In a real application, you would process the payment here
-            // For this demo, we'll just simulate a successful payment
+            const orderData = {
+                type: 'order',
+                timestamp: new Date().toISOString(),
+                orderId: 'TZ-' + Date.now().toString().substr(-6),
+                customer: deliveryInfo,
+                paymentMethod: selectedPaymentMethod,
+                items: cart,
+                subtotal: calculateSubtotal(),
+                shipping: 5.00,
+                tax: calculateSubtotal() * 0.1,
+                total: calculateSubtotal() + 5.00 + (calculateSubtotal() * 0.1)
+            };
             
-            // Clear the cart
-            cart = [];
-            updateCartUI();
-            
-            // Navigate to thank you page
-            navigateToPage('thank-you');
+            // Submit to Google Apps Script
+            submitToGoogleAppsScript(orderData)
+                .then(response => {
+                    // Clear the cart
+                    cart = [];
+                    updateCartUI();
+                    // Navigate to thank you page
+                    navigateToPage('thank-you');
+                })
+                .catch(error => {
+                    alert(currentLanguage === 'en' ? 'Sorry, there was an error processing your order. Please try again.' : 'عذرًا، حدث خطأ في معالجة طلبك. يرجى المحاولة مرة أخرى.');
+                    console.error('Error submitting order:', error);
+                });
         }
 
         // Update thank you page with order details
